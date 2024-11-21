@@ -1,0 +1,49 @@
+@media screen and (max-width: 1020px) {
+
+    /* Removendo os links da nav-bar */
+    .box-links, .box-links ul, .box-links li {
+        display: none
+    }
+
+    .nav-bar {
+        justify-content: space-between;
+    }
+
+    /* Configurando a caixa do menu */ 
+    .box-menu {
+        height: 60px;
+        width: 60px;
+        
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .box-menu i {
+        font-size: 44px;
+        color: #987954;
+    }
+
+    .box-cart-content {
+        width: 670px;
+        /* background-color: gray; */
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    /* Configurando a caixa de carrinho compras */
+    .box-cart-shopping {
+        width: 100%;
+
+        padding-left: 20px;
+        padding-right: 20px;
+
+        margin: 0;
+        margin-right: 100px;
+        margin-left: 100px;
+
+        background-color: #C19A6B;
+    }
+}
