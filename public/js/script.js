@@ -196,3 +196,29 @@ function atualizarContadorCarrinho() {
 }
 
 atualizarContadorCarrinho()
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Configuração do menu da nav-bar */
+
+const box_menu_items = document.getElementsByClassName("box-menu-items")[0];
+
+document.getElementById("menu").addEventListener("click", () => {
+    console.log("cliquei no menu")
+
+    if (!box_menu_items.classList.contains("show")) {
+        box_menu_items.classList.add("show");
+    } else {
+        box_menu_items.classList.remove("show");
+    }
+})

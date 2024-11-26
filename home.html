@@ -33,9 +33,22 @@
             </div>
 
             <div class="box-menu">
-                <a href="#menu"><i class="fa-solid fa-bars"></i></a>
+                <button id="menu" href="#menu"><i class="fa-solid fa-bars"></i></button>
             </div>
         </nav>
+
+
+        <!-- Menu -->
+        <div class="box-menu-items">
+            <div class="box-menu-links">
+                <ul>
+                    <li><a href="#home"><i class="fa-solid fa-house"></i> Ínicio</a></li>
+                    <li><a href="#products"><i class="fa-solid fa-bag-shopping"></i> Produtos</a></li>
+                    <li><a href="#about"><i class="fa-solid fa-circle-info"></i> Sobre nós</a></li>
+                    <li><a href="#contact"><i class="fa-solid fa-phone"></i> Contato</a></li>
+                </ul>
+            </div>
+        </div>
 
         <section class="red-about">
             <div class="red-content">
@@ -153,7 +166,9 @@
     </footer>
 
     <div class="box-cart-shopping">
-        <button id="cart-shopping"><p><i class="fa-solid fa-cart-shopping"></i> <span>(0)</span> Carrinho</p></button>
+        <button id="cart-shopping">
+            <p><i class="fa-solid fa-cart-shopping"></i> <span>(0)</span> Carrinho</p>
+        </button>
     </div>
 
     <div class="modal-cart-shopping" id="modal-cart-shopping">
@@ -165,7 +180,7 @@
             <div class="modal-inputs-send">
                 <small id="sub-total" style="font-weight: bold">Sub-total: R$0</small>
                 <input type="text" placeholder="Insira seu endereço">
-                
+
                 <div class="modal-btns-send">
                     <button class="modal-btn-buy">Comprar</button>
                     <button class="modal-btn-close">Fechar</button>
