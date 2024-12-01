@@ -167,7 +167,6 @@
 
     /* background-color: gray; */
     width: 100%;
-    padding: 20px;
 
     display: flex;
     flex-direction: column;
@@ -245,6 +244,10 @@
     color: white;
 
     transition: background-color .1s;
+}
+
+.modal_btn_buy_disabled {
+    background-color: gray !important;
 }
 
 .modal-btns-send .modal-btn-buy:hover {

@@ -136,8 +136,8 @@ function carregarCarrinho() {
 
 const cart_shopping = document.getElementById("cart-shopping"); // Botão para abrir/fechar meu carrinho
 const modal_cart_shopping = document.getElementById("modal-cart-shopping"); // Modal do carrinho de compras
-
 const modal_btn_close = document.getElementById("modal-btn-close"); // Botão para fechar o carrinho de compras
+const modal_btn_buy = document.getElementById("modal-btn-buy"); // Botão para fazer o pedido
 
 modal_cart_shopping.addEventListener("click", (event) => {
     if (event.target.classList.contains("modal-cart-shopping")) {
@@ -159,15 +159,12 @@ modal_cart_shopping.addEventListener("click", (event) => {
 
         if (productRemove.quantidade > 1) {
             productRemove.quantidade -= 1;
-            console.log(cart);
         } else {
             cartItem.remove()
 
             const index = cart.indexOf(productRemove);
 
             cart.splice(index, 1);
-            console.log(cart);
-            
             atualizarContadorCarrinho()
         }
 
@@ -196,3 +193,30 @@ function atualizarContadorCarrinho() {
 }
 
 atualizarContadorCarrinho()
+
+
+
+
+
+/* Configuração do botão de enviar o pedido */
+
+const observer = new MutationObserver(() => {
+    if (modal_cart_items.innerHTML == "") {
+        modal_btn_buy.disabled = true;
+        modal_cart_items.style.padding = "0px";
+        modal_cart_items.style.margin = "0px";
+
+        modal_btn_buy.classList.add("modal_btn_buy_disabled")
+
+    } else {
+        modal_btn_buy.disabled = false;
+        modal_cart_items.style.padding = "20px";
+        modal_cart_items.style.marginTop = "30px";
+        modal_cart_items.style.marginBottom = "30px";
+        
+        modal_btn_buy.classList.remove("modal_btn_buy_disabled")
+    }
+
+});
+
+observer.observe(modal_cart_items, { childList: true, subtree: true });
