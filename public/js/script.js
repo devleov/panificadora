@@ -198,6 +198,7 @@ atualizarContadorCarrinho()
 
 
 
+<<<<<<< HEAD
 /* Configuração do botão de enviar o pedido */
 
 const observer = new MutationObserver(() => {
@@ -220,3 +221,26 @@ const observer = new MutationObserver(() => {
 });
 
 observer.observe(modal_cart_items, { childList: true, subtree: true });
+=======
+
+
+
+
+
+
+
+
+/* Configuração do menu da nav-bar */
+
+const box_menu_items = document.getElementsByClassName("box-menu-items")[0];
+
+document.getElementById("menu").addEventListener("click", () => {
+    console.log("cliquei no menu")
+
+    if (!box_menu_items.classList.contains("show")) {
+        box_menu_items.classList.add("show");
+    } else {
+        box_menu_items.classList.remove("show");
+    }
+})
+>>>>>>> 7e7f8cc5b1aa13ac71e656cdc5eae7e23754ff50
