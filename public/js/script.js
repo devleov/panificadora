@@ -198,7 +198,6 @@ atualizarContadorCarrinho()
 
 
 
-<<<<<<< HEAD
 /* Configuração do botão de enviar o pedido */
 
 const observer = new MutationObserver(() => {
@@ -221,7 +220,6 @@ const observer = new MutationObserver(() => {
 });
 
 observer.observe(modal_cart_items, { childList: true, subtree: true });
-=======
 
 
 
@@ -243,4 +241,3 @@ document.getElementById("menu").addEventListener("click", () => {
         box_menu_items.classList.remove("show");
     }
 })
->>>>>>> 7e7f8cc5b1aa13ac71e656cdc5eae7e23754ff50
