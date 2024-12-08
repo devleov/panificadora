@@ -88,29 +88,35 @@
 
 .box-menu-items {
     position: absolute;
-    display: none;
-
     z-index: 2;
 
-    height: 100px;
     width: 100%;
+    height: 0px;
     background-color: #987954;
+
+    height: 0px;
+    opacity: 0;
+    pointer-events: none;
+    transition: .2s height ease-in-out, opacity .2s ease-in;
 }
 
 .box-menu-items.show {
+    height: 100px;
     display: flex;
+    opacity: 1;
+    pointer-events: all;
 }
 
 .box-menu-links ul {
     position: absolute;
-    
+
     list-style-type: none;
     display: flex;
     column-gap: 26px;
 
     height: 100%;
     width: 100%;
-    
+
     justify-content: space-around;
     align-items: center;
 
@@ -121,6 +127,12 @@
 .box-menu-items ul li {
     border-radius: 10px;
     list-style-type: none;
+    opacity: 0;
+    transition: 1s opacity;
+}
+
+.box-menu-items.show ul li {
+    opacity: 1;
 }
 
 .box-menu-links ul li a {
@@ -177,6 +189,7 @@
 
 .modal-cart-shopping {
     position: fixed;
+    display: flex;
     z-index: 100;
 
     top: 0;
@@ -187,19 +200,29 @@
 
     justify-content: center;
     align-items: center;
-    display: none;
+    opacity: 0;
+    pointer-events: none;
 
-    background-color: hsla(0, 0%, 2%, 0.316);
+    background-color: transparent;
+    transition: background-color .1s, opacity .2s;
 }
 
 .modal-cart-shopping.open {
-    display: flex;
+    background-color: rgb(0, 0, 0, 0.8);
+    opacity: 1;
+    height: 100%;
+    pointer-events: all;
 }
 
 .modal-cart-content {
     display: block;
     max-height: 600px;
     min-height: 320px;
+
+    margin-top: 100px;
+    margin-bottom: 100px;
+    margin-left: 30px;
+    margin-right: 30px;
 
     width: 400px;
     border-radius: 12px;
@@ -220,6 +243,10 @@
     margin: 0;
 }
 
+.modal-cart-items.empty {
+    padding: 0;
+    margin: 0;
+}
 
 .modal-cart-items {
     max-height: 200px;
@@ -232,8 +259,9 @@
     flex-direction: column;
     row-gap: 16px;
 
-    margin-bottom: 40px;
-    margin-top: 40px;
+    padding: 20px;
+    margin-top: 30px;
+    margin-bottom: 30px;
 }
 
 .cart-item {
@@ -306,7 +334,7 @@
     transition: background-color .1s;
 }
 
-.modal_btn_buy_disabled {
+.cart_modal_btn_buy_disabled {
     background-color: gray !important;
 }
 
@@ -335,7 +363,7 @@
     height: 400px;
     width: 100%;
 
-    background: url("../assets/background-2.jpg");
+    background: url("../assets/primary-background.jpg");
     background-attachment: fixed;
     background-repeat: no-repeat;
     background-size: cover;
@@ -402,7 +430,7 @@
     height: 24px;
 }
 
-.red-content-dinamic #txt-fixed {
+.red-content-dinamic p {
     font-family: "Open Sans", serif;
     font-size: 18px;
     color: #F8ECD4;
@@ -410,7 +438,7 @@
     /* background-color: brown; */
 }
 
-.red-content-dinamic #txt-dinamic {
+.red-content-dinamic p span {
     height: 24px;
     width: 300px;
 
@@ -424,7 +452,7 @@
     /* background-color: #F8ECD4; */
 }
 
-.red-content-dinamic #txt-dinamic::after {
+.red-content-dinamic p span::after {
     content: "";
     margin-left: 4px;
     position: absolute;
@@ -435,7 +463,7 @@
 
 .red-content-dinamic span.espera::after {
     animation: blink 0.5s infinite;
-    background-color:rgba(139, 69, 19, 0.5);
+    background-color: rgba(139, 69, 19, 0.5);
 }
 
 @keyframes blink {
@@ -446,7 +474,7 @@
     50% {
         opacity: 0;
     }
-    
+
     100% {
         opacity: 1;
     }
@@ -480,7 +508,7 @@
     transition: padding-right .2s;
 }
 
-.red-content a button:hover i { 
+.red-content a button:hover i {
     padding-right: 10px;
 }
 
@@ -524,7 +552,7 @@
     transition: all .2s;
 }
 
-.products .box-products .img-product {  
+.products .box-products .img-product {
     position: relative;
     height: 290px;
     width: 320px;
@@ -579,19 +607,19 @@
     min-height: 460px;
     width: 100%;
     padding: 30px;
-    
+
     display: flex;
     align-items: center;
     justify-content: center;
     column-gap: 50px;
 
-    background: 
+    background:
         linear-gradient(to bottom, rgba(255, 255, 255, 1) 10%, rgba(255, 255, 255, 0) 40%),
-        url('../assets/background.avif');
+        url('../assets/about-background.avif');
     background-size: cover;
     background-position: center;
 
-    
+
     position: relative;
 }
 
@@ -630,7 +658,7 @@
     z-index: 1;
     height: 150px;
     width: 200px;
-    
+
     /* background-color: red; */
 }
 

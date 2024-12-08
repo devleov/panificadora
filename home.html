@@ -39,7 +39,7 @@
 
 
         <!-- Menu -->
-        <div class="box-menu-items">
+        <div class="box-menu-items" id="box-menu-items">
             <div class="box-menu-links">
                 <ul>
                     <li><a href="#home"><i class="fa-solid fa-house"></i> Ínicio</a></li>
@@ -56,7 +56,7 @@
                     <h1>Boas vindas a Panificadora Bakery!</h1>
 
                     <div class="red-content-dinamic">
-                        <p id="txt-fixed">O sabor que aquece o coração, <span id="txt-dinamic"></span></p>
+                        <p>O sabor que aquece o coração, <span id="txt-dinamic"></span></p>
                     </div>
                 </div>
                 <a href="#about"><button><i class="fa-solid fa-arrow-right"></i> Conheça a nossa loja</button></a>
@@ -179,11 +179,11 @@
 
             <div class="modal-inputs-send">
                 <small id="sub-total" style="font-weight: bold">Sub-total: R$0</small>
-                <input type="text" placeholder="Insira seu endereço">
+                <input id="cart-address" type="text" placeholder="Insira seu endereço">
 
                 <div class="modal-btns-send">
-                    <button class="modal-btn-buy" id="modal-btn-buy">Comprar</button>
-                    <button class="modal-btn-close">Fechar</button>
+                    <button class="modal-btn-buy" id="cart-modal-btn-buy">Comprar</button>
+                    <button class="modal-btn-close" id="cart-modal-btn-close">Fechar</button>
                 </div>
             </div>
         </div>
@@ -198,7 +198,14 @@
     </div>
 
     <script src="https://kit.fontawesome.com/6c5b2a3ba2.js" crossorigin="anonymous"></script>
-    <script src="public/js/script.js"></script>
+
+    <script type="module" src="public/js/script.js"></script>
+
+    <script type="module" src="public/js/cart/addCart.js"></script>
+    <script type="module" src="public/js/cart/openCart.js"></script>
+    <script type="module" src="public/js/cart/closeCart.js"></script>
+    <script type="module" src="public/js/cart/contCart.js"></script>
+    <script type="module" src="public/js/cart/loadCart.js"></script>
 </body>
 
 </html>

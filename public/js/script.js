@@ -1,5 +1,4 @@
 const txt_dinamic = document.getElementById("txt-dinamic");
-const txt_fixed = document.getElementById("txt-fixed");
 
 const array = [
     "com o frescor de cada manhã!",
@@ -19,8 +18,6 @@ let intervalEspera;
 if (index < array.length) { // Se não percorremos o array por completo, execute.
 
     if (!interval) intervalCaracter = setInterval(escrevaCaracter, 150);
-
-    // txt_fixed.style.width = `${25 + array[index].length}ch`;
 
     function escrevaCaracter() {
         if (indexLetters < array[index].length) {
@@ -54,8 +51,6 @@ if (index < array.length) { // Se não percorremos o array por completo, execute
                 index = 0;
             }
 
-            // txt_fixed.style.width = `${25 + array[index].length}ch`;
-
             interval = false;
 
             intervalCaracter = setInterval(escrevaCaracter, 150);
@@ -68,179 +63,96 @@ if (index < array.length) { // Se não percorremos o array por completo, execute
 
 
 
+/* Configuração do carrinho de compras */
 
-/* Configuração do sistema do carrinho de compras */
+import OpenCart from './cart/openCart.js';
+import CloseCart from './cart/closeCart.js';
+import ContCart from './cart/contCart.js';
+import LoadCart from './cart/loadCart.js';
 
-const cart = [
-    {
-        produto: "Pão francês",
-        precoUnitario: 1,
-        quantidade: 5
-    },
-    {
-        produto: "Pão doce",
-        precoUnitario: 2.99,
-        quantidade: 3
-    },
-    {
-        produto: "Bolo de chocolate",
-        precoUnitario: 19.99,
-        quantidade: 2
-    },
-    {
-        produto: "Refrigerante Coca Cola",
-        precoUnitario: 3.99,
-        quantidade: 1
-    },
-];
+const cart = [];
+export default cart;
+window.cart = cart;
 
-const modal_cart_items = document.getElementById("modal-cart-items"); // Caixa principal dos pedidos
+function initializeCart() {
+    const btn_cart_shopping = document.getElementById("cart-shopping");
+    const modal_cart_shopping = document.getElementById("modal-cart-shopping");
+    const modal_cart_items = document.getElementById("modal-cart-items");
+    const cart_modal_btn_buy = document.getElementById("cart-modal-btn-buy");
+    const box_menu_items = document.getElementById("box-menu-items")
 
-function carregarCarrinho() {
-    modal_cart_items.innerHTML = "";
-
-    cart.forEach((element) => {
-        div = document.createElement("div");
-        div.classList.add("cart-item");
-
-        div.innerHTML = (
-            `
-        <div>
-            <p>${element.produto}</p>
-            <small>R$${(element.precoUnitario * element.quantidade).toFixed(2)}</small>
-            <p style="font-weight: bold;">Qt: <span>${element.quantidade}</span></p>
-        </div>
-    
-        <button class="remove-btn-item">Remover</button>
-        `
-        );
-
-        modal_cart_items.appendChild(div);
+    btn_cart_shopping.addEventListener("click", () => {
+        OpenCart();
     });
 
-    const sub_total = document.getElementById("sub-total");
+    modal_cart_shopping.addEventListener("click", (event) => {
+        const temClasse = (classe) => event.target.classList.contains(classe);
 
-    const value_sub_total = cart.reduce((acumulador, valorAtual) => {
-        return acumulador + valorAtual.precoUnitario * valorAtual.quantidade;
-    }, 0)
-
-    sub_total.textContent = `Sub-total: ${value_sub_total.toLocaleString("pt-BR", {
-        style: "currency",
-        currency: "BRL"
-    })}`;
-}
-
-
-
-
-
-const cart_shopping = document.getElementById("cart-shopping"); // Botão para abrir/fechar meu carrinho
-const modal_cart_shopping = document.getElementById("modal-cart-shopping"); // Modal do carrinho de compras
-const modal_btn_close = document.getElementById("modal-btn-close"); // Botão para fechar o carrinho de compras
-const modal_btn_buy = document.getElementById("modal-btn-buy"); // Botão para fazer o pedido
-
-modal_cart_shopping.addEventListener("click", (event) => {
-    if (event.target.classList.contains("modal-cart-shopping")) {
-        fecharCarrinho();
-    }
-
-    if (event.target.classList.contains("modal-btn-close")) {
-        fecharCarrinho();
-    }
-
-    if (event.target.classList.contains("remove-btn-item")) {
-        /* Remover um item do carrinho ou remover */
-
-        const cartItem = event.target.closest(".cart-item");
-
-        const productRemove = cart.find((element) => {
-            return element.produto == cartItem.getElementsByTagName("p")[0].innerHTML
-        });
-
-        if (productRemove.quantidade > 1) {
-            productRemove.quantidade -= 1;
-        } else {
-            cartItem.remove()
-
-            const index = cart.indexOf(productRemove);
-
-            cart.splice(index, 1);
-            atualizarContadorCarrinho()
+        if (temClasse("modal-cart-shopping") || temClasse("modal-btn-close")) {
+            CloseCart();
         }
 
-        carregarCarrinho();
-    }
-})
+        if (temClasse("remove-btn-item")) {
+            const cartItem = event.target.closest(".cart-item") // Buscando o item do carrinho correspondente ao botão de remover o item;
+            const productName = cartItem.querySelector("#product-name"); // Procura o id `.product-name` no elemento filho do elemento `cartItem`;
 
-cart_shopping.addEventListener("click", () => {
-    abrirCarrinho();
-})
+            const productRemove = cart.find((element) => {
+                return element.produto == productName.innerHTML; // Achando o elemento que está no carrinho de compras no array `cart` de acordo com o nome registrado no carrinho;
+            });
 
-/* Funções para abrir ou fechar o carrinho */
+            if (productRemove.quantidade > 1) {
+                productRemove.quantidade -= 1;
+            } else {
+                cartItem.remove();
+                const index = cart.indexOf(productRemove);
+                cart.splice(index, 1);
+                ContCart();
+            }
 
-function abrirCarrinho() {
-    modal_cart_shopping.classList.add("open");
-    carregarCarrinho();
-}
+            LoadCart();
+        }
+    });
 
-function fecharCarrinho() {
-    modal_cart_shopping.classList.remove("open");
-}
+    cart_modal_btn_buy.addEventListener("click", () => {
+        const input_cart_address = document.getElementById("cart-address").value;
 
-/* Alterando a quantidade de items no carrinho no elemento `cart-shopping` */
-function atualizarContadorCarrinho() {
-    cart_shopping.getElementsByTagName("span")[0].textContent = "(" + cart.length + ")" ;
-}
+        if (!input_cart_address) {
+            alert("Input vazio");
+            return;
+        }
 
-atualizarContadorCarrinho()
-
-
-
-
-
-<<<<<<< HEAD
-/* Configuração do botão de enviar o pedido */
-
-const observer = new MutationObserver(() => {
-    if (modal_cart_items.innerHTML == "") {
-        modal_btn_buy.disabled = true;
-        modal_cart_items.style.padding = "0px";
-        modal_cart_items.style.margin = "0px";
-
-        modal_btn_buy.classList.add("modal_btn_buy_disabled")
-
-    } else {
-        modal_btn_buy.disabled = false;
-        modal_cart_items.style.padding = "20px";
-        modal_cart_items.style.marginTop = "30px";
-        modal_cart_items.style.marginBottom = "30px";
-        
-        modal_btn_buy.classList.remove("modal_btn_buy_disabled")
-    }
-
-});
-
-observer.observe(modal_cart_items, { childList: true, subtree: true });
-=======
+        alert("Input com conteúdo");
+    });
 
 
+    document.getElementById("menu").addEventListener("click", () => {
+        if (!box_menu_items.classList.contains("show")) {
+            box_menu_items.classList.add("show");
+            return;
+        }
 
-
-
-
-
-
-/* Configuração do menu da nav-bar */
-
-const box_menu_items = document.getElementsByClassName("box-menu-items")[0];
-
-document.getElementById("menu").addEventListener("click", () => {
-    console.log("cliquei no menu")
-
-    if (!box_menu_items.classList.contains("show")) {
-        box_menu_items.classList.add("show");
-    } else {
         box_menu_items.classList.remove("show");
-    }
-})
->>>>>>> 7e7f8cc5b1aa13ac71e656cdc5eae7e23754ff50
+    });
+
+    cart_modal_btn_buy.disabled = true; // Inicia com o botão desligado já que estará sem conteúdo.
+    cart_modal_btn_buy.classList.add("cart_modal_btn_buy_disabled"); // Atribui características ao botão desligado.
+    modal_cart_items.classList.add("empty"); // Atribui propriedades de preenchimento e margem no carrinho para melhor visualização.
+
+    const observer = new MutationObserver(() => {
+        if (modal_cart_items.innerHTML == "") {
+            cart_modal_btn_buy.disabled = true;
+            modal_cart_items.classList.add("empty");
+            cart_modal_btn_buy.classList.add("cart_modal_btn_buy_disabled");
+        } else {
+            cart_modal_btn_buy.disabled = false;
+            modal_cart_items.classList.remove("empty");
+            cart_modal_btn_buy.classList.remove("cart_modal_btn_buy_disabled");
+        }
+    });
+
+    observer.observe(modal_cart_items, { childList: true, subtree: true });
+
+    ContCart();
+}
+
+document.addEventListener("DOMContentLoaded", initializeCart);
