@@ -1,4 +1,4 @@
-import cart from "../script.js";
+import cart from "../pages/home/script.js";
 import loadCart from "./loadCart.js";
 import contCart from "./contCart.js";
 

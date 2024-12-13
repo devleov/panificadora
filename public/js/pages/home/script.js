@@ -1,74 +1,9 @@
-const txt_dinamic = document.getElementById("txt-dinamic");
-
-const array = [
-    "com o frescor de cada manhã!",
-    "direto do forno para você!",
-    "trazendo momentos deliciosos!"
-];
-
-/* Variáveis de controle */
-let indexLetters = 0; // Índice referente ao caracter no array.
-let index = 0; // Índice referente ao elemento no array.
-let sentence = ""; // String referente a frase no texto dinâmico.
-let interval = false; // Bloqueio para execução do código.
-
-let intervalCaracter;
-let intervalEspera;
-
-if (index < array.length) { // Se não percorremos o array por completo, execute.
-
-    if (!interval) intervalCaracter = setInterval(escrevaCaracter, 150);
-
-    function escrevaCaracter() {
-        if (indexLetters < array[index].length) {
-            sentence = array[index][indexLetters]
-            txt_dinamic.textContent += sentence;
-
-            indexLetters++;
-        } else {
-            interval = true;
-
-            clearInterval(intervalCaracter);
-
-            txt_dinamic.classList.add("espera");
-            intervalEspera = setTimeout(tempoDeEspera, 5000);
-        }
-    }
-
-    function tempoDeEspera() {
-        setTimeout(() => {
-            txt_dinamic.classList.remove("espera");
-        }, 1700)
-
-        setTimeout(() => {
-            index++;
-            indexLetters = 0;
-            sentence = "";
-
-            txt_dinamic.textContent = "";
-
-            if (index >= array.length) {
-                index = 0;
-            }
-
-            interval = false;
-
-            intervalCaracter = setInterval(escrevaCaracter, 150);
-
-        }, 2000)
-
-        intervalEspera = clearTimeout(tempoDeEspera)
-    }
-}
-
-
-
 /* Configuração do carrinho de compras */
 
-import OpenCart from './cart/openCart.js';
-import CloseCart from './cart/closeCart.js';
-import ContCart from './cart/contCart.js';
-import LoadCart from './cart/loadCart.js';
+import OpenCart from '../../cart/openCart.js';
+import CloseCart from '../../cart/closeCart.js';
+import ContCart from '../../cart/contCart.js';
+import LoadCart from '../../cart/loadCart.js';
 
 const cart = [];
 export default cart;
@@ -79,7 +14,6 @@ function initializeCart() {
     const modal_cart_shopping = document.getElementById("modal-cart-shopping");
     const modal_cart_items = document.getElementById("modal-cart-items");
     const cart_modal_btn_buy = document.getElementById("cart-modal-btn-buy");
-    const box_menu_items = document.getElementById("box-menu-items")
 
     btn_cart_shopping.addEventListener("click", () => {
         OpenCart();
@@ -125,15 +59,6 @@ function initializeCart() {
     });
 
 
-    document.getElementById("menu").addEventListener("click", () => {
-        if (!box_menu_items.classList.contains("show")) {
-            box_menu_items.classList.add("show");
-            return;
-        }
-
-        box_menu_items.classList.remove("show");
-    });
-
     cart_modal_btn_buy.disabled = true; // Inicia com o botão desligado já que estará sem conteúdo.
     cart_modal_btn_buy.classList.add("cart_modal_btn_buy_disabled"); // Atribui características ao botão desligado.
     modal_cart_items.classList.add("empty"); // Atribui propriedades de preenchimento e margem no carrinho para melhor visualização.
@@ -153,6 +78,25 @@ function initializeCart() {
     observer.observe(modal_cart_items, { childList: true, subtree: true });
 
     ContCart();
+
+    const box_menu_items = document.getElementById("box-menu-items");
+
+    /* Menu */
+    document.getElementById("menu").addEventListener("click", () => {
+        if (!box_menu_items.classList.contains("show")) {
+            box_menu_items.classList.add("show");
+            return;
+        }
+
+        box_menu_items.classList.remove("show");
+    });
+
+    /* Resolução de bug de menu redimensionamento */
+    window.addEventListener("resize", () => {
+        if (window.innerWidth > 1020) {
+            box_menu_items.classList.remove("show");
+        }
+    })
 }
 
 document.addEventListener("DOMContentLoaded", initializeCart);

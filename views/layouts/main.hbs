@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{title}}</title>
+
+    <link rel="stylesheet" href="/css/pages/{{page}}/style.css">
+    <link rel="stylesheet" href="/css/pages/{{page}}/responsive.css">
+
+    <link rel="icon" href="/assets/imgs/logo.png">
+</head>
+
+<body>
+    {{> navbar}}
+
+    {{{body}}}
+
+    {{> cart}}
+    {{> footer}}
+
+    <script type="module" src="/js/pages/{{page}}/script.js"></script>
+
+    <script type="module" src="/js/cart/addCart.js"></script>
+    <script type="module" src="/js/cart/openCart.js"></script>
+    <script type="module" src="/js/cart/closeCart.js"></script>
+    <script type="module" src="/js/cart/contCart.js"></script>
+    <script type="module" src="/js/cart/loadCart.js"></script>
+</body>
+
+</html>

@@ -1,4 +1,4 @@
-import cart from "../script.js";
+import cart from "../pages/home/script.js";
 
 export default function carregarCarrinho() {
     const modal_cart_items = document.getElementById("modal-cart-items");

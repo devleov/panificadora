@@ -1,0 +1,149 @@
+/* Configuração do rodapé primário */
+
+.footer {
+    height: 100%;
+    padding: 26px;
+
+    background-color: #5C4033;
+
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    column-gap: 20px;
+    color: white;
+
+    font-family: "Open Sans", serif;
+}
+
+.footer h2 {
+    color: #F8ECD4;
+    font-family: "Merriweather", serif;
+    font-weight: 800;
+}
+
+/* Trabalhando com os conteiners de `footer` */
+
+.footer .about-footer,
+.navbar-about,
+.social-about {
+    display: flex;
+    flex-direction: column;
+    row-gap: 12px;
+    padding: 12px;
+}
+
+/* Descrição da seção de sobre */
+
+.about-footer {
+    width: 340px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* Links da seção de navegação */
+
+.navbar-about {
+    color: #C19A6B;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.nav-bar-about ul,
+li {
+    list-style-type: none;
+}
+
+.navbar-about img {
+    width: 14px;
+    margin-right: 4px;
+}
+
+.navbar-about a {
+    text-decoration: none;
+    color: #C19A6B;
+    transition: color .2s;
+}
+
+.navbar-about a:hover {
+    color: white;
+}
+
+
+
+/* Ícones da seção das redes sociais */
+
+
+.social-about div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    row-gap: 5px;
+    width: 160px;
+}
+
+.social-about a {
+    color: #C19A6B;
+    text-decoration: none;
+    transition: .2s color;
+}
+
+.social-about a:hover {
+    color: white;
+}
+
+.social-about img {
+    width: 14px;
+    margin-right: 4px;
+}
+
+
+
+/* Configuração do rodapé secundário */
+
+.footer-secondary {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    background-color: #5C4033;
+    width: 100%;
+    height: 70px;
+}
+
+.footer-secondary small {
+    font-family: monospace;
+    color: #F8ECD4;
+    padding-top: 10px;
+}
+
+
+
+
+
+
+/* Responsividade do rodapé */
+
+@media screen and (max-width: 657px) {
+    .footer {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .footer div {
+        flex-grow: 1;
+    }
+
+    .social-about {
+        width: 100%;
+        display: flex;
+        align-items: center;
+    }
+}
+
+@media screen and (max-width: 583px) {
+    .social-about {
+        align-items: initial;
+    }
+}

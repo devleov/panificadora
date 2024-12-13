@@ -1,0 +1,29 @@
+@media screen and (max-width: 679px) {
+    .red-content-dinamic span {
+        display: block;
+        text-align: center;
+    }
+
+    .red-content h1 {
+        padding-left: 76px;
+        padding-right: 76px;
+    }
+
+    /* Configuração do sobre */
+
+    .about {
+        flex-direction: column;
+        row-gap: 60px;
+    }
+
+    .about .box-content-about {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 570px) {
+    .red-content h1 {
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+}
