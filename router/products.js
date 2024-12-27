@@ -1,26 +1,24 @@
-const express = require("express");
+import express from "express";
+import arrayProducts from "../public/js/db/array.js";
 const router = express.Router();
 
+router.get("/:categoria", (req, res) => {
+    let categoria = req.params.categoria;
 
-router.get("/paes", (req, res) => {
-    res.render("paes", { title: "Seção de Pães - Panificadora Bakery" })
+    /* Filtrando pela categoria */
+    const produtos = arrayProducts.filter(element => element.categoria == categoria)
+
+    if (categoria == "paes") {
+        categoria = categoria.replace("a", "ã")
+    }
+
+    res.render(categoria, {
+        item: categoria.charAt(0).toUpperCase() + categoria.slice(1),
+        layout: "products",
+        section: (categoria == "bolos" || categoria == "salgados" ? categoria + ".avif" : categoria + ".jpg"),
+        items: produtos,
+    })
+
 })
 
-router.get("/bolos", (req, res) => {
-    res.send("Página da seção de bolos")
-})
-
-router.get("/gelados", (req, res) => {
-    res.send("Página da seção de gelados")
-})
-
-router.get("/salgados", (req, res) => {
-    res.send("Página da seção de salgados")
-})
-
-router.get("/doces", (req, res) => {
-    res.send("Página da seção de doces")
-})
-
-
-module.exports = router;
+export default router;

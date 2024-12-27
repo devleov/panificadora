@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+
+<html lang="pt-br">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="pães, bolos, doces, refrigerantes">
+    <meta name="author" content="Léo Vitor">
+
+    <title>Seção de {{item}} - Panificadora Bakery</title>
+
+    <link rel="stylesheet" href="/css/pages/products/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+
+    <link rel="icon" href="/assets/imgs/logo.png">
+</head>
+
+<body>
+    {{> navbar}}
+    {{{body}}}
+
+    <main class="box-main-products">
+        <div class="box-cards" id="box-cards">
+            {{#each items}}
+            <div class="card-item">
+                <div class="card-img-item">
+                    <img src="/assets/imgs/pages/products/items/{{imagem}}">
+                </div>
+
+                <div class="card-body">
+                    <p class="card-item-name">{{produto}}</p>
+                    <p class="card-item-price">{{formatCurrency precoUnitario}}</p>
+                </div>
+
+                <button class="add-to-cart-btn">
+                    <img src="/assets/imgs/components/cart/cart-shopping.svg" alt="icone-de-carrinho">Adicionar no
+                    carrinho
+                </button>
+            </div>
+            {{/each}}
+        </div>
+    </main>
+
+    {{> footer}}
+    {{> cart}}
+
+    <script type="module" src="/js/cart/addCart.js"></script>
+    <script type="module" src="/js/cart/openCart.js"></script>
+    <script type="module" src="/js/cart/closeCart.js"></script>
+    <script type="module" src="/js/cart/contCart.js"></script>
+    <script type="module" src="/js/cart/loadCart.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+    <script type="module" src="/js/pages/products/script.js"></script>
+    <script src="/js/components/menu.js"></script>
+</body>
+
+</html>

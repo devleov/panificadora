@@ -11,7 +11,7 @@ export default function carregarCarrinho() {
 
         div.innerHTML = (
             `
-        <div>
+        <div class="box-content-item">
             <p id="product-name">${element.produto}</p>
             <small>R$${(element.precoUnitario * element.quantidade).toFixed(2)}</small>
             <p style="font-weight: bold;">Qt: <span>${element.quantidade}</span></p>

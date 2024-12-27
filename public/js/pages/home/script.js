@@ -79,24 +79,6 @@ function initializeCart() {
 
     ContCart();
 
-    const box_menu_items = document.getElementById("box-menu-items");
-
-    /* Menu */
-    document.getElementById("menu").addEventListener("click", () => {
-        if (!box_menu_items.classList.contains("show")) {
-            box_menu_items.classList.add("show");
-            return;
-        }
-
-        box_menu_items.classList.remove("show");
-    });
-
-    /* Resolução de bug de menu redimensionamento */
-    window.addEventListener("resize", () => {
-        if (window.innerWidth > 1020) {
-            box_menu_items.classList.remove("show");
-        }
-    })
 }
 
 document.addEventListener("DOMContentLoaded", initializeCart);

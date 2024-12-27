@@ -1,0 +1,200 @@
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+/* Componentes */
+@import url("../../components/navbar.css");
+@import url("../../components/cart.css");
+@import url("../../components/footer.css");
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Estilização da apresentação de categoria */
+
+.red-section-product {
+    position: relative;
+    height: 170px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: grey;
+    z-index: 1;
+}
+
+.red-section-product .box-img-section {
+    position: absolute;
+    content: "";
+    height: 100%;
+    width: 100%;
+    z-index: 2;
+}
+
+.red-section-product .box-img-section::after {
+    position: absolute;
+    content: "";
+    height: 100%;
+    width: 100%;
+    background-color: black;
+    opacity: .8;
+    z-index: 3;
+}
+
+.red-section-product h1 {
+    position: absolute;
+    content: "";
+    z-index: 4;
+    color: white;
+    font-family: "Merriweather", sans-serif;
+}
+
+/* Caixa principal dos produtos da seção */
+
+.box-main-products {
+    margin-top: 50px;
+    margin-bottom: 50px;
+    min-height: 400px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 90px 0 90px;
+    /* background-color: gray; */
+}
+
+/* Configuração da caixa dos cards */
+
+.box-cards {
+    width: 100%;
+    min-height: 350px;
+    /* background-color: rgb(255, 153, 0); */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    row-gap: 10px;
+    column-gap: 10px;
+}
+
+/* Configuração dos cards */
+
+.card-item {
+    height: 400px;
+    width: 300px;
+    background-color: #422507;
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 30px;
+    color: white;
+
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+}
+
+.card-item .card-img-item {
+    width: 100%;
+    height: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* background-color: red; */
+}
+
+.card-item .card-img-item img {
+    height: 200px;
+    width: 100%;
+    border-radius: 10px;
+    /* background-color: gray; */
+    transition: scale .2s;
+}
+
+.card-item .card-img-item img:hover {
+    scale: 1.05;
+}
+
+.card-item .card-body {
+    margin-top: 25px;
+    font-family: "Open Sans", sans-serif;
+}
+
+.card-item .card-body .card-item-name {
+    font-weight: bold;
+}
+
+.card-item button {
+    display: block;
+    padding: 12px;
+    border: 0;
+    font-size: 13px;
+    font-family: "Poppins", sans-serif;
+    font-weight: bold;
+    border-radius: 10px;
+    background-color: rgb(130, 130, 174);
+    transition: .1s background-color;
+}
+
+.card-item button:hover {
+    cursor: pointer;
+    background-color: rgb(89, 89, 121);
+}
+
+.card-item button img {
+    height: 12px;
+    margin-right: 10px;
+}
+
+
+
+
+/* Ponto de pesquisa da categoria */
+
+.pointSearch {
+    height: 40px;
+    display: flex;
+    padding: 0 40px;
+    align-items: center;
+    justify-content: space-between;
+    /* background-color: grey; */
+    border-top: 1px solid gray;
+    border-bottom: 1px solid gray;
+    font-family: Poppins, sans-serif;
+}
+
+.pointSearch label {
+    font-weight: 400;
+    font-size: 15px;
+}
+
+.pointSearch select {
+    border: 0;
+    font-size: 17px;
+}
+
+
+
+/* Estilização para o popup de aviso de adição de item ao carrinho */
+
+#toast-container > div {
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+    width: 100% !important;
+}
+
+#toast-container > div:hover {
+    -webkit-box-shadow: none !important;
+    box-shadow: none  !important;
+}
+
+.toast-title {
+    font-family: "Open Sans", sans-serif;
+    margin-bottom: 5px;
+}
+
+.toast-message {
+    font-family: "Arial", sans-serif;
+}

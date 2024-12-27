@@ -1,15 +1,24 @@
-const express = require("express")
+import express from "express";
+import path from "path";
+
 const app = express();
-const path = require("path");
 
 // Rotas dos produtos 
-const products = require("./router/products");
+import products from "./router/products.js";
 app.use("/produtos", products);
 
 // Configuração do express-handlebars
-const { engine } = require("express-handlebars");
+import { engine } from "express-handlebars";
 
 app.engine("hbs", engine({
+    helpers: {
+        formatCurrency(value) {
+            return value.toLocaleString("pt-BR", {
+                style: "currency",
+                currency: "BRL"
+            });
+        }
+    },
     defaultLayout: "main",
     extname: "hbs",
     partialsDir: "views/partials",
@@ -18,7 +27,17 @@ app.engine("hbs", engine({
 
 app.set("view engine", "hbs");
 
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join("public")));
+
+
+const cart = []; // Carrinho de compras.
+export default cart;
+
+app.post("/addCart", (req, res) => {
+    const item = req.body.item;
+    cart.push(item);
+    res.json({ message: `Item: ${item} adicionado no carrinho!` })
+})
 
 app.get("/", (req, res) => {
     res.render("home", {
