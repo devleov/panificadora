@@ -2,10 +2,11 @@ import express from "express";
 import path from "path";
 
 const app = express();
+const port = 9091
 
 // Rotas dos produtos 
-import products from "./router/products.js";
-app.use("/produtos", products);
+import router from "./router/products.js";
+app.use("/produtos", router);
 
 // Configuração do express-handlebars
 import { engine } from "express-handlebars";
@@ -17,6 +18,10 @@ app.engine("hbs", engine({
                 style: "currency",
                 currency: "BRL"
             });
+        },
+        
+        lengthArray(array) {
+            return array.length;
         }
     },
     defaultLayout: "main",
@@ -46,6 +51,6 @@ app.get("/", (req, res) => {
     })
 })
 
-app.listen(9091, () => {
-    console.log("Servidor iniciado na porta 9091.")
+app.listen(port, () => {
+    console.log("Servidor iniciado na porta:", port)
 })

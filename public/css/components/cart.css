@@ -1,11 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800');
 
-/* Configuração do scroll */
-body.no-scroll {
-    overflow: hidden;
-    height: 100%;
-}
-
 /* Configuração em específico do carrinho de compras */
 
 .box-cart-shopping button {

@@ -13,12 +13,11 @@
 .nav-bar {
     height: 100px;
     background-color: #F8ECD4;
-    padding-left: 30px;
-    padding-right: 30px;
+    padding: 0 10%;
 
     display: flex;
     align-items: center;
-    justify-content: space-around;
+    justify-content: space-between;
 }
 
 /* Configuração da logo da loja */
@@ -41,7 +40,6 @@
     display: flex;
     justify-content: space-around;
 
-    width: 950px;
     height: 40px;
     /* background-color: red; */
 }
@@ -151,7 +149,7 @@
 
 /* Responsividade da nav-bar */
 
-@media screen and (max-width: 1020px) {
+@media screen and (max-width: 1100px) {
 
     /* Removendo os links da nav-bar */
     .box-links,

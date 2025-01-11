@@ -4,7 +4,6 @@ import LoadCart from "./loadCart.js"
 
 export default function abrirCarrinho() {
     modal_cart_shopping.classList.add("open");
-    body.classList.add("no-scroll");
 
     LoadCart();
 }

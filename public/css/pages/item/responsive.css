@@ -1,0 +1,11 @@
+@media screen and (max-width: 1023px) {
+    .img-product {
+        max-width: 440px;
+    }
+
+    .box-product {
+        flex-flow: column nowrap;
+        row-gap: 35px;
+        align-items: center;
+    }
+}

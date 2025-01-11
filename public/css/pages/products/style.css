@@ -4,6 +4,7 @@
 @import url("../../components/navbar.css");
 @import url("../../components/cart.css");
 @import url("../../components/footer.css");
+@import url("../../components/btnBack.css");
 
 * {
     margin: 0;
@@ -74,26 +75,42 @@
     align-items: center;
     justify-content: center;
     flex-wrap: wrap;
-    row-gap: 10px;
-    column-gap: 10px;
+    row-gap: 40px;
+    column-gap: 40px;
+}
+
+
+.box-cards a {
+    color: black;
+    text-decoration: none;
+}
+
+.box-cards a:hover {
+    text-decoration: underline;
 }
 
 /* Configuração dos cards */
 
 .card-item {
-    height: 400px;
-    width: 300px;
-    background-color: #422507;
-    border: 1px solid black;
+    /* background-color: #422507; */
+    width: 260px;
     border-radius: 10px;
-    padding: 30px;
-    color: white;
-
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-
+    color: black;
+    
+    /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); */
+    
     display: flex;
     flex-direction: column;
     row-gap: 20px;
+
+    /* border: 1px solid black; */
+
+    opacity: 1;
+    transition: opacity .1s;
+}
+
+.card-item:hover {
+    opacity: .9;
 }
 
 .card-item .card-img-item {
@@ -108,86 +125,33 @@
 .card-item .card-img-item img {
     height: 200px;
     width: 100%;
-    border-radius: 10px;
+    /* border-radius: 10px; */
     /* background-color: gray; */
-    transition: scale .2s;
-}
-
-.card-item .card-img-item img:hover {
-    scale: 1.05;
 }
 
 .card-item .card-body {
     margin-top: 25px;
     font-family: "Open Sans", sans-serif;
+    color: #5C4033; 
 }
 
 .card-item .card-body .card-item-name {
     font-weight: bold;
 }
 
-.card-item button {
-    display: block;
-    padding: 12px;
-    border: 0;
-    font-size: 13px;
-    font-family: "Poppins", sans-serif;
-    font-weight: bold;
-    border-radius: 10px;
-    background-color: rgb(130, 130, 174);
-    transition: .1s background-color;
-}
-
-.card-item button:hover {
-    cursor: pointer;
-    background-color: rgb(89, 89, 121);
-}
-
-.card-item button img {
-    height: 12px;
-    margin-right: 10px;
-}
-
-
-
-
-/* Ponto de pesquisa da categoria */
-
-.pointSearch {
-    height: 40px;
-    display: flex;
-    padding: 0 40px;
-    align-items: center;
-    justify-content: space-between;
-    /* background-color: grey; */
-    border-top: 1px solid gray;
-    border-bottom: 1px solid gray;
-    font-family: Poppins, sans-serif;
-}
-
-.pointSearch label {
-    font-weight: 400;
-    font-size: 15px;
-}
-
-.pointSearch select {
-    border: 0;
-    font-size: 17px;
-}
-
 
 
 /* Estilização para o popup de aviso de adição de item ao carrinho */
 
-#toast-container > div {
+#toast-container>div {
     -webkit-box-shadow: none !important;
     box-shadow: none !important;
     width: 100% !important;
 }
 
-#toast-container > div:hover {
+#toast-container>div:hover {
     -webkit-box-shadow: none !important;
-    box-shadow: none  !important;
+    box-shadow: none !important;
 }
 
 .toast-title {
@@ -197,4 +161,54 @@
 
 .toast-message {
     font-family: "Arial", sans-serif;
+}
+
+
+
+/* Configuração da seção de filtragem dos produtos */
+
+.box-search-products {
+    display: flex;
+    padding: 10px 5%;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid black;
+    /* background-color: antiquewhite; */
+    font-family: "Roboto", sans-serif;
+}
+
+.box-search-products label {
+    font-weight: bold;
+    font-size: 13px;
+    margin-right: 4px;
+}
+
+.box-search-products select {
+    height: 35px;
+    width: 100px;
+    font-size: 17px;
+    border: 1px solid white;
+    border-radius: 4px;
+}
+
+/* Configuração da divisória de pesquisa por produto */
+
+.box-search-products input {
+    padding-left: 10px;
+    border: 1px solid gray;
+    height: 40px;
+    width: 230px;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: bold;
+    font-family: "Roboto", sans-serif;
+}
+
+.box-search-products button {
+    font-size: 15px;
+    height: 40px;
+    width: 100px;
+    cursor: pointer;
+    border: 1px solid gray;
+    border-radius: 10px;
 }

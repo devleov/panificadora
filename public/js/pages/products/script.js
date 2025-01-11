@@ -1,105 +1,153 @@
-import addCart from '../../cart/addCart.js';
+/* Caixa principal de pesquisa dos produtos */
+const boxSearchProducts = document.getElementById("boxSearchProducts");
 
-const addItemToCart = document.querySelectorAll(".add-to-cart-btn");
+/* Select de filtragem de especificidade */
+const filterSelect = document.getElementById("filter");
 
-// Configurações do Toastr
-toastr.options = {
-    "closeButton": true,                  // Adiciona um botão de fechar
-    "progressBar": true,                  // Exibe a barra de progresso
-    "positionClass": "toast-top-right",   // Define a posição no canto superior direito
-    "timeOut": "5000",                    // Duração do aviso (3 segundos)
-    "extendedTimeOut": "6000",            // Tempo extra ao passar o mouse
-    "showMethod": "fadeIn",               // Método de exibição
-    "hideMethod": "fadeOut"               // Método ao fechar
-};
+/* Função para pesquisa por nome do produto */
+import searchName from "../../db/SearchName.js"
 
-addItemToCart.forEach((element) => {
-    element.addEventListener("click", (event) => {
-        toastr.success(
-            'Item adicionado ao carrinho com sucesso!',
-            'Sucesso'
-        );
+/* Função para filtragem */
+import Filter from "../../db/Filter.js";
 
-        const cardItem = event.target.closest(".card-item");
-        const cardBody = cardItem.querySelector(".card-body");
+/* Categoria em relação ao produto */
+const category = boxSearchProducts.getAttribute("data-category");
 
-        const itemName = cardBody.querySelector(".card-item-name").textContent;
+/* Quantidade de produtos retornado da filtragem */
+const spanQuantyItem = document.getElementById("productLength")
 
-        addCart(itemName, 1);
-    })
-})
+/* Caixa dos cards */
+const boxCards = document.getElementById("box-cards");
 
+filterSelect.addEventListener("change", () => {
+    /* Especificidade do produto que vai filtrar */
+    const specificity = filterSelect.value;
+    
+    /* Executando a função de filtragem */
+    const items = Filter(category, specificity);
 
-/* Configuração do sistema de ponto de pesquisa de categoria */
+    /* Se caso não der certo dê erro e mostre no console */
+    if (items.status == 500) {
+        return console.error(items);
+    };
+    
+    /* Tamanho do array que veio da filtragem */
+    const productLength = items.data.length;
+    spanQuantyItem.innerText = productLength;
 
-const categorySelect = document.getElementById("filterSearch");
-const box_cards = document.getElementById("box-cards");
-import arrayProducts from "../../db/array.js";
+    /* Limpando os cards */
+    boxCards.innerHTML = "";
 
-categorySelect.addEventListener("change", async () => {
-    /* Limpando o conteúdo para colocar os elementos especificados */
-    box_cards.querySelectorAll(".card-item").forEach((element) => {
-        element.remove();
-    })
+    if (items.data.includes("Não há nenhum item")) {
+        spanQuantyItem.innerText = 0;
+        
+        const p = document.createElement("p")
+        p.innerHTML = items.data;
+        p.style.fontWeight = "bold";
+        p.style.color = "brown";
+        p.style.fontSize = "21px";
+        p.style.fontFamily = "sans-serif";
 
-    if (categorySelect.value == "todos") {
-        arrayProducts.forEach(element => {
-            
-            const cardItem = document.createElement("div");
-            cardItem.classList.add("card-item");
+        boxCards.appendChild(p);
 
-            cardItem.innerHTML = `
-                <div class="card-img-item">
-                    <img src="/assets/imgs/pages/products/items/${element.imagem}">
-                </div>
-
-                <div class="card-body">
-                    <p class="card-item-name">${element.produto}</p>
-                    <p class="card-item-price">${element.precoUnitario.toLocaleString("pt-BR", {
-                style: "currency",
-                currency: "BRL"
-            })}</p>
-                </div>
-
-                <button class="add-to-cart-btn">
-                    <img src="/assets/imgs/components/cart/cart-shopping.svg" alt="icone-de-carrinho">Adicionar no
-                    carrinho
-                </button>
-            `;
-
-            box_cards.appendChild(cardItem);
-        })
+        return;
     }
 
-    const produtosFiltrados = arrayProducts.filter(element => element.especificidade == categorySelect.value)
-
-    produtosFiltrados.forEach(element => {
+    /* Fazer mudar o conteúdo dinamicamente pela caixa principal dos cards usando .forEach */
+    items.data.forEach((element) => {
+        /* Link que fica envolta do card */
+        const link = document.createElement("a");
+        link.href = `${element.categoria}/${element.url_produto}`;
+        
         const cardItem = document.createElement("div");
         cardItem.classList.add("card-item");
+        cardItem.id = element.id;
 
         cardItem.innerHTML = `
+            <div class="card-item" id="${element.id}">
                 <div class="card-img-item">
                     <img src="/assets/imgs/pages/products/items/${element.imagem}">
                 </div>
 
-                <div class="card-body">
+            <div class="card-body">
                     <p class="card-item-name">${element.produto}</p>
                     <p class="card-item-price">${element.precoUnitario.toLocaleString("pt-BR", {
-            style: "currency",
-            currency: "BRL"
-        })}</p>
+                        style: "currency",
+                        currency: "BRL"
+                    })}</p>
+                </div>
+            </div>
+        `;
+
+        link.appendChild(cardItem);
+        boxCards.appendChild(link);
+    })
+})
+
+
+
+/* Funcionalidade de pesquisar o item por produto */
+
+const btnInputSearch = document.getElementById("btnInputSearch");
+const inputSearch = document.getElementById("inputSearch");
+
+btnInputSearch.addEventListener("click", () => {
+    let data;
+
+    if (!inputSearch.value) {
+        data = searchName(category)
+    }
+
+    data = searchName(category, inputSearch.value);
+
+    /* Limpando antes de adicionar o elemento filtrado */
+    boxCards.innerHTML = "";
+    
+    if (data.includes("Não há nenhum item")) {
+        spanQuantyItem.innerText = 0;
+        
+        const p = document.createElement("p")
+        p.innerHTML = data;
+        p.style.fontWeight = "bold";
+        p.style.color = "brown";
+        p.style.fontSize = "21px";
+        p.style.fontFamily = "sans-serif";
+
+        boxCards.appendChild(p);
+
+        return;
+    }
+
+    /* Tamanho do array que veio da filtragem */
+    const productLength = data.length;
+    spanQuantyItem.innerText = productLength;
+
+    data.forEach((element) => {
+        /* Link que fica envolta do card */
+        const link = document.createElement("a");
+        link.href = `${element.categoria}/${element.url_produto}`;
+        
+        const cardItem = document.createElement("div");
+        cardItem.classList.add("card-item");
+        cardItem.id = element.id;
+
+        cardItem.innerHTML = `
+            <div class="card-item" id="${element.id}">
+                <div class="card-img-item">
+                    <img src="/assets/imgs/pages/products/items/${element.imagem}">
                 </div>
 
-                <button class="add-to-cart-btn">
-                    <img src="/assets/imgs/components/cart/cart-shopping.svg" alt="icone-de-carrinho">Adicionar no
-                    carrinho
-                </button>
-            `;
+            <div class="card-body">
+                    <p class="card-item-name">${element.produto}</p>
+                    <p class="card-item-price">${element.precoUnitario.toLocaleString("pt-BR", {
+                        style: "currency",
+                        currency: "BRL"
+                    })}</p>
+                </div>
+            </div>
+        `;
 
-        box_cards.appendChild(cardItem);
-    })
-
-    // 1. Encontrar onde o conteúdo dos cards estão sendo carregados
-    // 2. Conseguir o array e filtrar de acordo com a especificidade do produto
-    // 3. Obter o valor do filtro e recarregar o conteúdo com os produtos correspondentes
-})
+        link.appendChild(cardItem);
+        boxCards.appendChild(link);
+    });
+});
