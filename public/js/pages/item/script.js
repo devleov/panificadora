@@ -1,8 +1,6 @@
-// Importando a função de adicionar o item no carrinho
-import addCart from '../../cart/addCart.js';
-
-// Input de quantidade de item do produto
-const inputQuanty = document.getElementById("quanty");
+import addCart from "../../cart/addCart.js";
+import contCart from "../../cart/contCart.js";
+import openCart from "../../cart/openCart.js";
 
 // Botão de adicionar o item no carrinho
 const btnAddToCart = document.getElementById("add-to-cart");
@@ -29,15 +27,16 @@ box.addEventListener("mousemove", (e) => {
     img.style.transform = 'scale(2)';
 })
 
- box.addEventListener("mouseleave", () => {
-     img.style.transformOrigin = "center center";
-     img.style.transform = "scale(1)";
- })
+box.addEventListener("mouseleave", () => {
+    img.style.transformOrigin = "center center";
+    img.style.transform = "scale(1)";
+})
 
 
 /* Detalhes do produto que o usuário está acessando */
 const nameProduct = document.getElementById("nameProduct");
 const priceProduct = document.getElementById("priceProduct").textContent.slice(3).replace(",", ".");
+const inputQuanty = document.getElementById("quanty");
 
 inputQuanty.addEventListener("change", () => {
     verificaQuantyInvalida();
@@ -45,14 +44,14 @@ inputQuanty.addEventListener("change", () => {
     if (inputQuanty.value !== 0 && inputQuanty.value > 0 && inputQuanty.value !== 1) {
         let valorFinal = (parseFloat(inputQuanty.value) * parseFloat(priceProduct))
 
-        messageWarnCart.innerHTML = `O valor final será de R$ ${valorFinal.toFixed(2)}`;
+        messageWarnCart.innerHTML = `O valor final será de R$ ${valorFinal.toFixed(2).replace(".", ",")}`;
         messageWarnCart.style.visibility = "visible";
         messageWarnCart.style.color = "gray";
-        
+
         const valorAntigo = inputQuanty.value;
 
         let intervaloValor = setTimeout(() => {
-            const valorAtual = inputQuanty.value; 
+            const valorAtual = inputQuanty.value;
 
             // Se o valor do input mudar no intervalo de 5 segundos então vai cancelar o intervalo.
             if (valorAntigo !== valorAtual) {
@@ -101,7 +100,7 @@ function verificaQuantyInvalida() {
 
 /* Função de adicionar o item no carrinho */
 
-const addItemToCart = document.querySelectorAll(".add-to-cart-btn");
+const btnAddItemToCart = document.querySelectorAll(".add-to-cart-btn");
 
 // Configurações do Toastr
 toastr.options = {
@@ -114,13 +113,26 @@ toastr.options = {
     "hideMethod": "fadeOut"               // Método ao fechar
 };
 
-addItemToCart.forEach((element) => {
-    element.addEventListener("click", (event) => {
-        toastr.success(
-            'Item adicionado ao carrinho com sucesso!',
-            'Sucesso'
-        );
+btnAddItemToCart.forEach((element) => {
+    element.addEventListener("click", async () => { 
+        const data = await addCart(nameProduct, inputQuanty);
 
-        addCart(nameProduct.textContent, parseFloat(inputQuanty.value));
+        if (data.status == 100) {
+            toastr.warning(data.message, "Aviso");
+
+            return;
+        };
+
+        if (data.status == 200) {
+            toastr.success("Item adicionado com sucesso no carrinho de compras!", "Sucesso")
+        };
+
     })
+})
+
+fetch("/contCart", {
+    method: "POST",
+    headers: { "Content-type": "application/json" }
+}).then((resp) => resp.json()).then((data) => {
+    contCart(data.tamanhoCarrinho);
 })

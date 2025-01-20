@@ -11,8 +11,9 @@
     <title>Seção de {{item}} - Panificadora Bakery</title>
 
     <link rel="stylesheet" href="/css/pages/products/style.css">
+    <link rel="stylesheet" href="/css/pages/products/responsive.css">
 
-    <link rel="icon" href="/assets/imgs/logo.png">
+    <link rel="icon" href="/assets/icons/logo.png">
 </head>
 
 <body>
@@ -24,8 +25,15 @@
             <label for="filter">Filtrar por:</label>
             <select id="filter">
                 <option value="todos" selected>Todos</option>
-                <option value="doce">Doce</option>
-                <option value="salgado">Salgado</option>
+                
+                {{#if (eq category "paes" "bolos") }}
+                    <option value="doce">Doce</option>
+                    <option value="salgado">Salgado</option>
+                {{/if}}
+                {{#if (eq category "gelados")}}
+                    <option value="lata">Latas</option>
+                    <option value="garrafa">Garrafas</option>
+                {{/if}}
             </select>
         </div>
 
@@ -66,14 +74,11 @@
     {{> footer}}
     {{> cart}}
 
-    <script type="module" src="/js/cart/addCart.js"></script>
-    <script type="module" src="/js/cart/openCart.js"></script>
-    <script type="module" src="/js/cart/closeCart.js"></script>
-    <script type="module" src="/js/cart/contCart.js"></script>
-    <script type="module" src="/js/cart/loadCart.js"></script>
-
+    <script type="module" src="/js/cart/funcCart.js"></script>
+    <script type="module" src="/js/cart/configCart.js"></script>
     <script type="module" src="/js/pages/products/script.js"></script>
-    <script src="/js/components/menu.js"></script>
+
+    <script src="/js/components/navMenu.js"></script>
 </body>
 
 </html>

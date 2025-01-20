@@ -1,14 +1,16 @@
+/* Função para pesquisa por nome do produto */
+import searchName from "../../db/SearchName.js";
+
+/* Função para filtragem */
+import FilterBySpecificity from "../../db/FilterSpecificity.js";
+import FilterByFeature from "../../db/FilterFeature.js";
+import contCart from "../../cart/contCart.js";
+
 /* Caixa principal de pesquisa dos produtos */
 const boxSearchProducts = document.getElementById("boxSearchProducts");
 
 /* Select de filtragem de especificidade */
 const filterSelect = document.getElementById("filter");
-
-/* Função para pesquisa por nome do produto */
-import searchName from "../../db/SearchName.js"
-
-/* Função para filtragem */
-import Filter from "../../db/Filter.js";
 
 /* Categoria em relação ao produto */
 const category = boxSearchProducts.getAttribute("data-category");
@@ -20,11 +22,18 @@ const spanQuantyItem = document.getElementById("productLength")
 const boxCards = document.getElementById("box-cards");
 
 filterSelect.addEventListener("change", () => {
-    /* Especificidade do produto que vai filtrar */
-    const specificity = filterSelect.value;
+    /* Valor da opção do produto que clicou */
+    const valueOption = filterSelect.value;
     
+    /* Retorno da filtragem de produto */
+    let items;
+
+    if (category == "paes" || category == "bolos") {
     /* Executando a função de filtragem */
-    const items = Filter(category, specificity);
+        items = FilterBySpecificity(category, valueOption);
+    } else {
+        items = FilterByFeature(category, valueOption);
+    }
 
     /* Se caso não der certo dê erro e mostre no console */
     if (items.status == 500) {
@@ -91,7 +100,17 @@ filterSelect.addEventListener("change", () => {
 const btnInputSearch = document.getElementById("btnInputSearch");
 const inputSearch = document.getElementById("inputSearch");
 
+inputSearch.addEventListener("keydown", (event) => {
+    if (event.key == "Enter") {
+        pesquisarPorNome();
+    }   
+})
+
 btnInputSearch.addEventListener("click", () => {
+    pesquisarPorNome();
+});
+
+function pesquisarPorNome() {
     let data;
 
     if (!inputSearch.value) {
@@ -150,4 +169,11 @@ btnInputSearch.addEventListener("click", () => {
         link.appendChild(cardItem);
         boxCards.appendChild(link);
     });
-});
+};
+
+fetch("/contCart", {
+    method: "POST",
+    headers: { "Content-type": "application/json" }
+}).then((resp) => resp.json()).then((data) => {
+    contCart(data.tamanhoCarrinho);
+})

@@ -1,0 +1,8 @@
+@media screen and (max-width: 820px) {
+    .box-search-products {
+        flex-direction: column;
+        row-gap: 20px;
+        height: auto;
+        padding: 10px;
+    }
+}

@@ -111,7 +111,7 @@ input {
 /* Estilização do botão de adicionar o item no carrinho */
 
 .cart-product button {
-    width: 80%;
+    max-width: 400px;
     display: block;
     padding: 12px;
     border: 0;
@@ -166,7 +166,22 @@ input {
 }
 
 
+/* Caixa de características de produtos */
 
+.feature-product {
+    margin-top: 20px;
+    text-transform: capitalize;
+    /* border: 1px solid black; */
+}
+
+.feature-product ul {
+    padding-left: 20px;
+}
+
+.feature-product li {
+    list-style-type: disc;
+    margin-bottom: 2px;
+}
 
 /* Caixa principal dos produtos da seção */
 
@@ -248,7 +263,8 @@ input {
 }
 
 .card-item .card-img-item img {
-    height: 200px;
+    max-height: 225px;
+    /* background: gray; */
     width: 100%;
     /* border-radius: 10px; */
     /* background-color: gray; */

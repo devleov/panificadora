@@ -1,4 +1,4 @@
-import array from "./array.js";
+import array from "./Database.js";
 
 function normalizeString(string) {
     return string.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();

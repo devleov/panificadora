@@ -29,7 +29,7 @@
 
 .box-cart-shopping button p {
     color: black;
-    width: 110px;
+    width: 120px;
     margin: 0;
 }
 
@@ -71,6 +71,7 @@
 }
 
 .modal-cart-content {
+    position: relative;
     display: block;
     max-height: 600px;
     min-height: 320px;
@@ -97,10 +98,10 @@
     margin: 0;
 }
 
-.modal-cart-items.empty {
+/* .modal-cart-items.empty {
     padding: 0;
     margin: 0;
-}
+} */
 
 .modal-cart-items {
     max-height: 216px;
@@ -119,18 +120,20 @@
     margin-bottom: 30px;
 }
 
-.cart-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.box-content-item {
     column-gap: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    /* border: 1px solid black; */
 }
 
-.cart-item p {
+.box-content-item p {
     margin: 0;
 }
 
-.cart-item button {
+.box-content-item button {
     height: 30px;
     width: 100px;
     border-radius: 6px;
@@ -140,7 +143,7 @@
     font-family: "Poppins", sans-serif;
 }
 
-.cart-item button:hover {
+.box-content-item button:hover {
     cursor: pointer;
 }
 
@@ -148,7 +151,6 @@
     /* background-color: rgb(51, 51, 51); */
 
     width: 100%;
-    height: 170px;
 
     display: flex;
     row-gap: 12px;
@@ -161,7 +163,7 @@
 }
 
 .modal-inputs-send input {
-    height: 70px;
+    min-height: 45px;
     outline: none;
     border: 0;
     background-color: #c0c0c0;
@@ -174,7 +176,7 @@
     color: black;
 }
 
-.modal-btns-send button {
+.modal-btns button {
     width: 100%;
     height: 40px;
     border-radius: 12px;
@@ -182,13 +184,13 @@
     border: 0;
 }
 
-.modal-btns-send {
+.modal-btns {
     display: flex;
     flex-direction: column;
     row-gap: 4px;
 }
 
-.modal-btns-send .modal-btn-buy {
+.modal-btns .modal-btn-buy {
     background-color: #2626bb;
     color: white;
 
@@ -200,19 +202,36 @@
     cursor: default !important;
 }
 
-.modal-btns-send .modal-btn-buy:hover {
+.modal-btns .modal-btn-buy:hover {
     background-color: #191983;
     cursor: pointer;
 }
 
-.modal-btns-send .modal-btn-close {
+.modal-btns .modal-btn-close {
     background-color: #fb3e3e;
     color: white;
 
     transition: background-color .1s;
 }
 
-.modal-btns-send .modal-btn-close:hover {
+.modal-btns .modal-btn-close:hover {
     background-color: #bd2f2f;
+    cursor: pointer;
+}
+
+.modal-btn-remove-items {
+    position: absolute;
+    right: 20px;
+    top: 8px;
+    margin-top: 20px;
+    height: 20px;
+    width: 100%;
+    background-color: transparent;
+    /* border: 1px solid gray; */
+}
+
+.modal-btn-remove-items img {
+    height: 100%;
+    float: right;
     cursor: pointer;
 }

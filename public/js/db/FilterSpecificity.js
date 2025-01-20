@@ -1,8 +1,8 @@
-import array from "./array.js";
+import array from "./Database.js";
 
 /* Filtro para o uso nos filtros de especificidade e categoria na seção de filtragem nas rotas como /produtos/paes */
 
-export default function Filter(category, specificity) {
+export default function FilterBySpecificity(category, specificity) {
     // Category = categoria dos produtos que deseja retornar
     // Specificity = especificidade dos produto que deseja filtrar
     // Length = quantidade de itens que quer retornar da filtragem

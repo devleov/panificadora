@@ -1,11 +1,10 @@
-const modal_cart_shopping = document.getElementById("modal-cart-shopping");
-const body = document.body;
-import LoadCart from "./loadCart.js"
+import loadCart from "./loadCart.js";
 
-export default function abrirCarrinho() {
+export default function openCart() {
+    const modal_cart_shopping = document.querySelector(".modal-cart-shopping");
+
+    /* Incluído atribuição de classe e carregamento do carrinho */
     modal_cart_shopping.classList.add("open");
 
-    LoadCart();
+    loadCart();
 }
-
-window.abrirCarrinho = abrirCarrinho;

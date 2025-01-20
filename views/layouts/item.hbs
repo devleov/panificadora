@@ -10,7 +10,7 @@
     <meta name="author" content="Léo Vitor">
     <title>{{title}} - Seção de {{item}}</title>
 
-    <link rel="icon" href="/assets/imgs/logo.png">
+    <link rel="website icon" href="/assets/icons/logo.png">
 
     <link rel="stylesheet" href="/css/pages/item/style.css">
     <link rel="stylesheet" href="/css/pages/item/responsive.css">
@@ -49,9 +49,19 @@
                 </button>
             </div>
 
+            <div class="feature-product">
+                <h3>Características</h3>
+
+                <ul>
+                    <li>{{index caracteristicas 0}}</li>
+                    <li>{{index caracteristicas 1}}</li>
+                    <li>{{index caracteristicas 2}}</li>
+                </ul>
+            </div>
+
             <div class="describe-product">
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit dolor iure, voluptas, perferendis
-                    pariatur error</p>
+                <p>{{descricao}}</p>
+
             </div>
         </div>
     </div>
@@ -80,18 +90,24 @@
     </section>
 
     <div class="boxBtnBack">
-        <a href="{{btnUrlBack}}"><button><img src="/assets/imgs/pages/home/arrow-right.svg" alt="seta-direita"> Voltar</button></a>
+        <a href="{{btnUrlBack}}"><button><img src="/assets/imgs/pages/home/arrow-right.svg" alt="seta-direita">
+                Voltar</button></a>
     </div>
 
     {{> cart}}
 
     {{> footer}}
 
+
+    <script type="module" src="/js/cart/funcCart.js"></script>
+    <script type="module" src="/js/cart/configCart.js"></script>
+    
+    <script src="/js/components/navMenu.js"></script>
+    
+    <script type="module" src="/js/pages/item/script.js"></script>
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-
-    <script type="module" src="/js/pages/item/script.js"></script>
-    <script src="/js/components/menu.js"></script>
 </body>
 
 </html>

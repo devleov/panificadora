@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="/css/pages/{{page}}/style.css">
     <link rel="stylesheet" href="/css/pages/{{page}}/responsive.css">
 
-    <link rel="icon" href="/assets/imgs/logo.png">
+    <link rel="icon" href="/assets/icons/logo.png">
 </head>
 
 <body>
@@ -20,14 +20,11 @@
     {{> cart}}
     {{> footer}}
 
-    <script type="module" src="/js/pages/{{page}}/script.js"></script>
-    <script type="module" src="/js/components/menu.js"></script>
+    <script type="module" src="/js/cart/funcCart.js"></script>
+    <script type="module" src="/js/cart/configCart.js"></script>
+    <script type="module" src="/js/pages/home/script.js"></script>
 
-    <script type="module" src="/js/cart/addCart.js"></script>
-    <script type="module" src="/js/cart/openCart.js"></script>
-    <script type="module" src="/js/cart/closeCart.js"></script>
-    <script type="module" src="/js/cart/contCart.js"></script>
-    <script type="module" src="/js/cart/loadCart.js"></script>
+    <script src="/js/components/navMenu.js"></script>
 </body>
 
 </html>

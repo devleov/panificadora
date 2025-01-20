@@ -1,5 +1,5 @@
 import express from "express";
-import arrayProducts from "../public/js/db/array.js";
+import arrayProducts from "../public/js/db/Database.js";
 
 import shuffleArray from "../public/js/db/Shuffle.js"
 
@@ -12,9 +12,9 @@ router.get("/:category/:produto", (req, res) => {
     const urlProduct = req.params.produto;
 
     /* Produto que foi acessado */
-    const product = arrayProducts.filter((element) => element.category == category && element.url_produto == urlProduct);
+    const product = arrayProducts.filter((element) => element.categoria == category && element.url_produto == urlProduct);
 
-    const array = arrayProducts.filter((element) => element.especificidade == product[0].especificidade && element.id !== product[0].id)
+    const array = arrayProducts.filter((element) => element.especificidade == product[0].especificidade && element.categoria == product[0].categoria && element.id !== product[0].id)
     const itemSuggestion = shuffleArray(array).slice(0, 4);
 
     res.render("produto", {
