@@ -222,10 +222,8 @@
 .modal-btn-remove-items {
     position: absolute;
     right: 20px;
-    top: 8px;
-    margin-top: 20px;
+    top: 28px;
     height: 20px;
-    width: 100%;
     background-color: transparent;
     /* border: 1px solid gray; */
 }

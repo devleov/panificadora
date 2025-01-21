@@ -170,7 +170,6 @@ input {
 
 .feature-product {
     margin-top: 20px;
-    text-transform: capitalize;
     /* border: 1px solid black; */
 }
 
@@ -241,7 +240,7 @@ input {
     
     display: flex;
     flex-direction: column;
-    row-gap: 20px;
+    row-gap: 10px;
 
     /* border: 1px solid black; */
 

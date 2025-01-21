@@ -65,6 +65,15 @@ app.get("/", (req, res) => {
     });
 });
 
+app.post("/removeAllItems", (req, res) => {
+    /* Removendo todos os itens do carrinho da sessão */
+    req.session.carrinho = []
+
+    res.json({
+        status: 200,
+    })
+})
+
 app.post("/searchProduct", (req, res) => {
     if (!req.session.carrinho) {
         req.session.carrinho = [];

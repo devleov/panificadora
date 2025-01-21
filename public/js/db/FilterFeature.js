@@ -1,6 +1,7 @@
 import array from "./Database.js";
 
 export default function FilterByFeature(category, feature) {
+    
     if (feature == "todos") {
         return {
             data: array.filter((element) => element.categoria == category),
@@ -9,7 +10,7 @@ export default function FilterByFeature(category, feature) {
     }
 
     return {
-        data: array.filter((element) => element.categoria == category && element.caracteristicas.includes(feature)),
+        data: array.filter((element) => element.categoria == category && (element.produto.toLowerCase()).includes(feature)),
         status: 200,
     };
 };
