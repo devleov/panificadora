@@ -1,0 +1,32 @@
+{
+    "rewrites": [
+        {
+            "source": "/",
+            "destination": "/server/index.js"
+        },
+        {
+            "source": "/addCart",
+            "destination": "/server/addCart.js"
+        },
+        {
+            "source": "/removeAllItems",
+            "destination": "/server/removeAllItems.js"
+        },
+        {
+            "source": "/searchProduct",
+            "destination": "/server/searchProduct.js"
+        },
+        {
+            "source": "/contCart",
+            "destination": "/server/contCart.js"
+        },
+        {
+            "source": "/loadCart",
+            "destination": "/server/loadCart.js"
+        },
+        {
+            "source": "/produtos",
+            "destination": "/server/products.js"
+        }
+    ]
+}
