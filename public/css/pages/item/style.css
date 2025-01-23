@@ -51,7 +51,7 @@ body {
 
 .info-product {
     display: flex;
-    max-width: 700px;
+    width: 100%;
     row-gap: 43px;
     flex-flow: column nowrap;
     flex: 60%;
@@ -67,6 +67,8 @@ body {
 .info-product .content-product h2 {
     font-size: 40px;
     font-weight: bold;
+    width: 100%;
+    max-width: 400px;
 }
 
 .info-product .content-product p {
@@ -148,7 +150,6 @@ input {
 /* Configuração da descrição do produto */
 
 .describe-product {
-    width: 400px;
     text-align: left;
     overflow: hidden;
 

@@ -28,7 +28,7 @@ filterSelect.addEventListener("change", () => {
     /* Retorno da filtragem de produto */
     let items;
 
-    if (category == "paes" || category == "bolos") {
+    if (category == "paes" || category == "bolos" || category == "varejo" || category == "salgadinhos") {
     /* Executando a função de filtragem */
         items = FilterBySpecificity(category, valueOption);
     } else {

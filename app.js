@@ -40,8 +40,8 @@ app.engine("hbs", engine({
             return array.length;
         },
 
-        eq(a, b, c) {
-            return a === b || a === c;
+        eq(a, b, c, d, e) {
+            return a === b || a === c || a === d || a === e;
         },
 
         index(element, index) {
