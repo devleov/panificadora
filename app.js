@@ -7,6 +7,8 @@ import { engine } from "express-handlebars";
 
 const app = express();
 
+const __dirname = path.dirname(new URL(import.meta.url).pathname);
+
 app.set('views', path.resolve(__dirname, 'views'));
 
 // Configuração de sessões
