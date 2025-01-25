@@ -7,6 +7,8 @@ import { engine } from "express-handlebars";
 
 const app = express();
 
+app.set('views', path.resolve(__dirname, 'views'));
+
 // Configuração de sessões
 app.use(session({
     secret: "meuincrivelpan",
