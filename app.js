@@ -7,7 +7,7 @@ import { engine } from "express-handlebars";
 
 const app = express();
 
-// Configurando a sessão
+// Configuração de sessões
 app.use(session({
     secret: "meuincrivelpan",
     saveUninitialized: true,
@@ -55,14 +55,11 @@ app.get("/", (req, res) => {
     });
 });
 
-// Outras rotas aqui...
-
-// Definir a porta do servidor
+// Definir a porta do servidor para desenvolvimento local
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
     console.log(`Servidor rodando na porta ${PORT}`);
-}); 
+});
 
-// Rodando o servidor no Vercel
 export default app;
