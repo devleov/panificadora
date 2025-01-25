@@ -1,10 +1,11 @@
-import array from "./public/js/db/Database.js";
+import arrayProducts from "./public/js/db/Database.js";
 
 import express from "express";
 import path from "path";
 
 const app = express();
-const port = 9091;
+
+import shuffleArray from "./public/js/db/Shuffle.js";
 
 // Configurando a sessão
 import session from "express-session";
@@ -19,10 +20,6 @@ app.use(session({
 }))
 
 app.use(express.json());
-
-// Rotas dos produtos 
-import router from "./router/products.js";
-app.use("/produtos", router);
 
 // Configuração do express-handlebars
 import { engine } from "express-handlebars";
@@ -132,7 +129,7 @@ app.post("/addCart", (req, res) => {
 
     try {
         /* Procurando se o produto existe no sistema */
-        const produto = array.find(element => element.produto === nomeProduto);
+        const produto = arrayProducts.find(element => element.produto === nomeProduto);
 
         /* Condição se caso o produto não existir no sistema */
         if (!produto) {
@@ -192,10 +189,50 @@ app.post("/loadCart", (req, res) => {
             return acumulador + valorAtual.quantidade * valorAtual.precoUnitario
         }, 0)
     });
+});
 
+app.get("/produtos/:category/:produto", (req, res) => {
+    /* Quando o usuário entra em um produto específico */
+    let category = req.params.category;
+    const btnUrlBack = `/produtos/${category}`;
+    const urlProduct = req.params.produto;
+
+    /* Produto que foi acessado */
+    const product = arrayProducts.filter((element) => element.categoria == category && element.url_produto == urlProduct);
+
+    const array = arrayProducts.filter((element) => element.especificidade == product[0].especificidade && element.categoria == product[0].categoria && element.produto !== product[0].produto)
+    const itemSuggestion = shuffleArray(array).slice(0, 4);
+
+    res.render("produto", {
+        item: (category == "paes" ? (category = "pães").charAt(0).toUpperCase() + category.slice(1) : category.charAt(0).toUpperCase() + category.slice(1)),
+        title: product[0].produto,
+        produto: product,
+        btnUrlBack: btnUrlBack,
+        itemSuggestion: itemSuggestion,
+        layout: "item"
+    })
 })
 
+app.get("/produtos/:categoria", (req, res) => {
+    let category = req.params.categoria;
 
-app.listen(port, () => {
-    console.log("Servidor iniciado na porta:", port)
-})
+    /* Filtrando pela categoria */
+    const produtos = arrayProducts.filter(element => element.categoria == category)
+
+    res.render(category, {
+        item: (category == "paes" ? (category = "pães").charAt(0).toUpperCase() + category.slice(1) : category.charAt(0).toUpperCase() + category.slice(1)),
+        layout: "products",
+        category: req.params.categoria,
+        section: (category == "bolos" || category == "salgados" ? category + ".avif" : category + ".jpg"),
+        items: produtos,
+    })
+});
+
+
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+    console.log(`Servidor rodando na porta ${PORT}`);
+});
+
+export default app;
