@@ -1,9 +1,17 @@
 import arrayProducts from "../public/js/db/Database.js";
 
 import express from "express";
+
 import path from "path";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
+
+app.set("views", path.join(__dirname, "views"));
+app.set("view engine", "hbs"); 
 
 import shuffleArray from "../public/js/db/Shuffle.js";
 
@@ -50,8 +58,6 @@ app.engine("hbs", engine({
     partialsDir: "views/partials",
     layoutsDir: "views/layouts"
 }));
-
-app.set("view engine", "hbs");
 
 app.use(express.static(path.join("public")));
 
