@@ -12,9 +12,9 @@ const redis = new Redis({
     host: process.env.REDIS_HOST,
     port: process.env.REDIS_PORT,
     password: process.env.REDIS_PASSWORD,
-    maxRetriesPerRequest: 5, // Número máximo de tentativas de reconexão
-    enableOfflineQueue: false, // Para evitar a fila offline quando o Redis estiver desconectado
-    connectionName: 'my-app-redis', // Nome para monitoramento
+    maxRetriesPerRequest: 5, 
+    enableOfflineQueue: true, 
+    connectionName: 'my-app-redis', 
     retryStrategy: (times) => {
         // Estratégia de reconexão com tempo exponencial (tempo máximo de 2s)
         return Math.min(times * 50, 2000);
@@ -23,6 +23,8 @@ const redis = new Redis({
     maxClients: 10, // Limite de conexões ativas no pool
     // Permite reutilizar conexões em outras partes da aplicação
     lazyConnect: true, // Garante que a conexão só seja estabelecida quando necessário
+}).on('error', (err) => {
+    console.error("Redis error: ", err);
 });
 
 redis.on('connect', () => {
