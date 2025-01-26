@@ -1,6 +1,4 @@
-import Redis from 'ioredis';
 import session from 'express-session';
-import { RedisStore } from "connect-redis";
 import express from 'express';
 import path from 'path';
 
@@ -8,39 +6,8 @@ import arrayProducts from "../public/js/db/Database.js";
 
 const app = express();
 
-const redis = new Redis({
-    host: process.env.REDIS_HOST,
-    port: process.env.REDIS_PORT,
-    password: process.env.REDIS_PASSWORD,
-    maxRetriesPerRequest: 5, 
-    enableOfflineQueue: true, 
-    connectionName: 'my-app-redis', 
-    retryStrategy: (times) => {
-        // Estratégia de reconexão com tempo exponencial (tempo máximo de 2s)
-        return Math.min(times * 50, 2000);
-    },
-    // Controla o número máximo de conexões ativas
-    maxClients: 10, // Limite de conexões ativas no pool
-    // Permite reutilizar conexões em outras partes da aplicação
-    lazyConnect: true, // Garante que a conexão só seja estabelecida quando necessário
-}).on('error', (err) => {
-    console.error("Redis error: ", err);
-});
-
-redis.on('connect', () => {
-    console.log('Conectado ao Redis com sucesso!');
-});
-
-redis.on('error', (err) => {
-    console.error('Erro ao conectar com Redis:', err);
-});
-
 // Configuração da sessão com Redis
 app.use(session({
-    store: new RedisStore({
-        client: redis,
-        ttl: 86400,  // Tempo de expiração das sessões (1 dia)
-    }),
     secret: process.env.SESSION_SECRET,  // String secreta para assinatura dos cookies de sessão
     saveUninitialized: true,
     resave: false,
