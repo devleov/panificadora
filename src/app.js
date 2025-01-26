@@ -55,7 +55,7 @@ app.engine("hbs", engine({
 
 app.set("view engine", "hbs");
 
-app.use(express.static(path.join("public")));
+app.use(express.static(path.join(process.cwd(), "public")));
 
 app.get("/", (req, res) => {
     res.render("home", {
