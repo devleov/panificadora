@@ -1,27 +1,38 @@
+import Redis from 'ioredis';
+import session from 'express-session';
+import { RedisStore } from "connect-redis"
+import express from 'express';
+import path from 'path';
+
 import arrayProducts from "../public/js/db/Database.js";
-
-import express from "express";
-
-import path from "path";
 
 const app = express();
 
-app.set("views", path.join(process.cwd(), "src", "views"));
-app.set("view engine", "hbs"); 
+const redis = new Redis({
+    host: process.env.REDIS_HOST,
+    port: process.env.REDIS_PORT,
+    password: process.env.REDIS_PASSWORD,
+});
 
-import shuffleArray from "../public/js/db/Shuffle.js";
-
-// Configurando a sessão
-import session from "express-session";
+// Configuração da sessão com Redis
 app.use(session({
-    secret: "meuincrivelpan",
+    store: new RedisStore({
+        client: redis,
+        ttl: 86400,  // Tempo de expiração das sessões (1 dia)
+    }),
+    secret: process.env.SESSION_SECRET,  // Isso pode ser qualquer string secreta
     saveUninitialized: true,
     resave: false,
     cookie: {
-        secure: false,
-        maxAge: 1000 * 60 * 60 * 24,
+        secure: true,  
+        maxAge: 1000 * 60 * 60 * 24,  // 1 dia
     }
-}))
+}));
+
+app.set("views", path.join(process.cwd(), "src", "views"));
+app.set("view engine", "hbs");
+
+import shuffleArray from "../public/js/db/Shuffle.js";
 
 app.use(express.json());
 
@@ -64,6 +75,17 @@ app.get("/", (req, res) => {
     });
 });
 
+app.get("/setSession", (req, res) => {
+    req.session.carrinho = [ "Item qualquer" ];
+
+    /* Configurando a sessão */
+    res.send("Sessão configurada com sucesso!");
+});
+
+app.get("/getSession", (req, res) => {
+    res.json(req.session.carrinho || "Não definida");
+});
+
 app.post("/removeAllItems", (req, res) => {
     /* Removendo todos os itens do carrinho da sessão */
     req.session.carrinho = []
@@ -99,7 +121,7 @@ app.post("/searchProduct", (req, res) => {
             status: 200,
         });
     } else {
-        produto.quantidade --;
+        produto.quantidade--;
         req.session.save();
 
         res.json({
@@ -151,8 +173,8 @@ app.post("/addCart", (req, res) => {
             produtoExisteOuNao.quantidade += quantProduto;
         } else {
             if (req.session.carrinho.length == 10) {
-                return res.json({ 
-                    message: "Tamanho do carrinho máximo atingido!", 
+                return res.json({
+                    message: "Tamanho do carrinho máximo atingido!",
                     status: 100,
                 });
             }
@@ -166,9 +188,9 @@ app.post("/addCart", (req, res) => {
             });
         }
 
-        res.json({ 
-            tamanhoCarrinho: req.session.carrinho.length, 
-            status: 200 
+        res.json({
+            tamanhoCarrinho: req.session.carrinho.length,
+            status: 200
         });
     } catch (err) {
         console.error(err);
