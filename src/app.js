@@ -3,14 +3,10 @@ import arrayProducts from "../public/js/db/Database.js";
 import express from "express";
 
 import path from "path";
-import { fileURLToPath } from "url";
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
 const app = express();
 
-app.set("views", path.join(__dirname, "views"));
+app.set("views", path.join(process.cwd(), "src", "views"));
 app.set("view engine", "hbs"); 
 
 import shuffleArray from "../public/js/db/Shuffle.js";
@@ -55,8 +51,8 @@ app.engine("hbs", engine({
     },
     defaultLayout: "main",
     extname: "hbs",
-    partialsDir: "views/partials",
-    layoutsDir: "views/layouts"
+    partialsDir: "src/views/partials",
+    layoutsDir: "src/views/layouts"
 }));
 
 app.use(express.static(path.join("public")));
