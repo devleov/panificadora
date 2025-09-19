@@ -1,21 +1,15 @@
 /* Configuração do rodapé primário */
 
-.footer {
+footer {
     height: 100%;
     padding: 26px;
-
     background-color: #5C4033;
-
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    column-gap: 20px;
-    color: white;
-
     font-family: "Open Sans", serif;
+    row-gap: 10px;
+    column-gap: 20px;
 }
 
-.footer h2 {
+footer h2 {
     color: #F8ECD4;
     font-family: "Merriweather", serif;
     font-weight: 800;
@@ -23,7 +17,7 @@
 
 /* Trabalhando com os conteiners de `footer` */
 
-.footer .about-footer,
+footer .about-footer,
 .navbar-about,
 .social-about {
     display: flex;
@@ -50,7 +44,7 @@
     justify-content: center;
 }
 
-.nav-bar-about ul,
+.navbar-about ul,
 li {
     list-style-type: none;
 }
@@ -125,13 +119,13 @@ li {
 /* Responsividade do rodapé */
 
 @media screen and (max-width: 657px) {
-    .footer {
+    footer {
         display: flex;
         justify-content: center;
         flex-wrap: wrap;
     }
 
-    .footer div {
+    footer div {
         flex-grow: 1;
     }
 

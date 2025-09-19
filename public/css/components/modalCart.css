@@ -1,0 +1,55 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800');
+
+/* Configuração em específico do carrinho de compras */
+
+.box-cart-shopping button {
+    position: fixed;
+    display: block;
+
+    bottom: 0;
+
+    z-index: 98;
+    width: 100%;
+    height: 34px;
+    border: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "Poppins", sans-serif;
+
+    background-color: #c5a073;
+    transition: all .2s;
+}
+
+.box-cart-shopping button:hover {
+    cursor: pointer;
+    background-color: #987954;
+}
+
+.box-cart-shopping button img {
+    width: 13px;
+}
+
+
+/* Fazendo uma animação de entrada/fechamento do offcanvas do carrinho de compras */
+
+.offcanvas {
+    transform: translateX(100%) !important;
+    opacity: 0;
+    transition: transform .4s ease-in-out, opacity .4s ease-in-out;
+}
+
+.offcanvas.show {
+    transform: translateX(0) !important;
+    opacity: 1;
+}
+
+.offcanvas.hiding {
+    transform: translateX(100%) !important;
+    opacity: 0;
+}
+
+.offcanvas-backdrop.fade {
+    transition: .4s opacity;
+}

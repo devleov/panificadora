@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+
+<html lang="pt-br">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="pães, bolos, doces, refrigerantes">
+    <meta name="author" content="Léo Vitor">
+
+    <title>Seção de {{category}} - Panificadora Bakery</title>
+
+    {{!-- CSS BOOTSTRAP --}}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="/css/pages/section/style.css">
+    <link rel="stylesheet" href="/css/pages/section/responsive.css">
+
+    <link rel="icon" href="/assets/icons/logo.png">
+</head>
+
+<body>
+    {{> navbar}}
+
+    <div class="position-relative d-flex justify-content-start align-items-center" style="height: 100px;">
+        <img class="position-absolute top-0 left-0 opacity-25" style="height: 100%; width: 100%; object-fit: cover;"
+            src="{{img_category}}" alt="seção de {{category}}">
+
+        <h1 class="position-relative color-dark" style="padding: 0 10%;">Seção de {{category}}</h1>
+    </div>
+
+    <section class="d-flex justify-content-between align-items-center border flex-wrap"
+        style="gap: 20px; padding: 10px 10%;" data-category="{{category}}" id="boxSearchProducts">
+        <div>
+            <label for="filter">Filtrar por:</label>
+            <select class="form-select" id="filter">
+                <option value="todos" selected>Todos</option>
+
+                {{#if (eq category "pães" "bolos" "salgadinhos") }}
+                <option value="doce">Doce</option>
+                <option value="salgado">Salgado</option>
+                {{/if}}
+
+                {{#if (eq category "gelados")}}
+                <option value="lata">Latas</option>
+                <option value="garrafa">Garrafas</option>
+                {{/if}}
+            </select>
+        </div>
+
+        <div class="btn-group w-50">
+            <input style="width: 100%;" class="form-control position-relative" type="text" id="inputSearch"
+                placeholder="Buscar">
+            <img height="25px" width="25px" src="/assets/imgs/components/cart/search.png" alt=""
+                class="position-absolute" style="cursor: pointer; right: 10px; bottom: 5px;" id="btnInputSearch">
+        </div>
+
+        <p class="mb-0">Produtos encontrados: <span style="font-weight: bold" id="productLength">{{lengthArray
+                items}}</span></p>
+    </section>
+
+    <main class="box-main-products mt-5 mb-5" style="padding: 0 10%;">
+        <div class="d-flex justify-content-between align-items-center flex-wrap" id="box-products"
+            style="min-height: 350px; row-gap: 20px;">
+            {{#each items}}
+            <div class="item" id="{{id}}">
+                <a style="text-decoration: none;" href="{{categoria}}/{{url_produto}}">
+                    <div class="card-item d-flex flex-column p-2 gap-2">
+                        <div class="card-img-item rounded">
+                            <img class="rounded" src="/assets/imgs/pages/section/{{imagem}}">
+                        </div>
+
+                        <div class="card-body">
+                            <p class="card-item-name fs-5 mb-0">{{produto}}</p>
+                            <p class="card-item-price fs-6 mb-0">{{formatCurrency precoUnitario}}</p>
+                        </div>
+                </a>
+
+                <div class="card-footer d-flex">
+                    <div class="d-flex justify-content-between align-items-center me-2 border rounded">
+                        <div role="button" class="qtd-add px-2 py-1"><i style="pointer-events: none;"
+                                class="fa-solid fa-plus"></i></div>
+
+                        <input min="1" type="text" value="1"
+                            class="input-qtd form-control mx-auto text-center border-0 w-75">
+
+                        <div role="button" class="qtd-rem px-2 py-1"><i style="pointer-events: none;"
+                                class="fa-solid fa-minus"></i></div>
+                    </div>
+                    <button class="btn-buy btn text-white"
+                        style="background-color: #c5a073; letter-spacing: .5px; font-family: 'Merriweather', sans-serif;">COMPRAR</button>
+                </div>
+            </div>
+        </div>
+        {{/each}}
+        </div>
+
+    </main>
+
+    <div class="text-center mt-4 mb-5">
+        <a href="/#products" class="btn btn-lg" style="background-color: #F8ECD4;">Voltar</a>
+    </div>
+
+    {{> footer}}
+    {{> modalCart}}
+
+    {{!-- JS BOOTSTRAP --}}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+    
+    {{!-- EVENTOS DO CARRINHO DE COMPRAS --}}
+    <script type="module" src="/js/func/cart/otherEvents.js"></script>
+    
+    {{!-- CARREGAMENTO DO JAVASCRIPT DA PÁGINA --}}
+    <script type="module" src="/js/pages/section/script.js"></script>
+    <script src="https://kit.fontawesome.com/6c5b2a3ba2.js" crossorigin="anonymous"></script>
+    <script src="/js/jquery.js"></script>
+</body>
+
+</html>

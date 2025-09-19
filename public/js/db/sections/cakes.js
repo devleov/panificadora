@@ -1,5 +1,6 @@
 const cakes = [
     {
+        id: 5,
         produto: "Bolo de Cenoura com Chocolate",
         url_produto: "bolo-cenoura-chocolate",
         imagem: "cake-carrot-chocolate.avif",
@@ -10,6 +11,7 @@ const cakes = [
         descricao: "Bolo de Cenoura com cobertura de chocolate, uma delícia para adoçar o dia."
     },
     {
+        id: 6,
         produto: "Bolo de Fubá",
         url_produto: "bolo-fuba",
         imagem: "cake-cornmeal.avif",
@@ -20,6 +22,7 @@ const cakes = [
         descricao: "Bolo de Fubá tradicional, ideal para acompanhar o café da tarde."
     },
     {
+        id: 7,
         produto: "Bolo de Chocolate com Brigadeiro",
         url_produto: "bolo-chocolate-brigadeiro",
         imagem: "chocolate-brigadeiro-cake.png",
@@ -30,6 +33,7 @@ const cakes = [
         descricao: "Bolo de chocolate recheado e coberto com brigadeiro, uma combinação irresistível que vai adoçar seu dia."
     },
     {
+        id: 8,
         produto: "Bolo de Coco com Leite Condensado",
         url_produto: "bolo-coco-leite-condensado",
         imagem: "coconut-condensed-milk-cake.png",
@@ -40,6 +44,7 @@ const cakes = [
         descricao: "Bolo de coco macio e úmido, coberto com leite condensado, trazendo um sabor clássico e irresistível."
     },
     {
+        id: 9,
         produto: "Bolo de Morango com Chantilly",
         url_produto: "bolo-morango-chantilly",
         imagem: "strawberry-whipped-cream-cake.avif",

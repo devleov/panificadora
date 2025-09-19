@@ -1,5 +1,6 @@
 const freezes = [
     {
+        id: 10,
         produto: "Lata Coca Cola 350ml",
         url_produto: "coca-cola-lata",
         imagem: "can-coca.png",
@@ -10,6 +11,7 @@ const freezes = [
         descricao: "Refresque-se com o sabor inconfundível. Coca-Cola Lata: a dose perfeita de felicidade!"
     },
     {
+        id: 11,
         produto: "Lata Sprite 350ml",
         url_produto: "sprite-lata",
         imagem: "can-sprite.png",
@@ -20,6 +22,7 @@ const freezes = [
         descricao: "Sabor leve e refrescante que revigora. Sprite Lata: pura refrescância em cada gole!"
     },
     {
+        id: 12,
         produto: "Garrafa Coca Cola 2l",
         url_produto: "coca-cola-garrafa",
         imagem: "bottle-coca.png",
@@ -30,6 +33,7 @@ const freezes = [
         descricao: "Compartilhe momentos inesquecíveis. Garrafa Coca-Cola: o sabor clássico que une pessoas!"
     },
     { 
+        id: 13,
         produto: "Garrafa Sprite 2l",
         url_produto: "sprite-garrafa",
         imagem: "bottle-sprite.png",
@@ -40,6 +44,7 @@ const freezes = [
         descricao: "Refresque seus momentos. Garrafa Sprite: o sabor leve e refrescante que revigora!"
     },
     {
+        id: 14,
         produto: "Lata Fanta Uva 350ml",
         url_produto: "fanta-uva-lata",
         imagem: "can-fanta-grape.png",

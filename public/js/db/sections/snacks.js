@@ -1,5 +1,6 @@
 const snacks = [
     {
+        id: 25,
         produto: "Coxinha de Frango",
         url_produto: "coxinha-de-frango",
         imagem: "chicken-drumstick.avif",
@@ -10,6 +11,7 @@ const snacks = [
         descricao: "Deliciosa coxinha recheada com frango desfiado, tempero especial e uma casquinha crocante."
     },
     {
+        id: 26,
         produto: "Enroladinho de Salsicha",
         url_produto: "enroladinho-de-salsicha",
         imagem: "sausage-roll.avif",
@@ -20,6 +22,7 @@ const snacks = [
         descricao: "Enroladinho crocante com recheio de salsicha e massa macia, perfeito para qualquer ocasião."
     },
     {
+        id: 27,
         produto: "Esfirra de Pizza",
         url_produto: "esfirra-de-pizza",
         imagem: "esfirra-pizza.avif",
@@ -30,6 +33,7 @@ const snacks = [
         descricao: "Esfirra sabor pizza com recheio de queijo, tomate e orégano, uma delícia irresistível."
     },
     {
+        id: 28,
         produto: "Torta Vegetal",
         url_produto: "torta-de-vegetais",
         imagem: "pie-vegetable.avif",
@@ -40,6 +44,7 @@ const snacks = [
         descricao: "Deliciosa torta de vegetais, recheada com uma combinação de legumes frescos e temperos, perfeita para uma refeição leve e saudável."
     },
     {
+        id: 29,
         produto: "Empada de Frango",
         url_produto: "empada-de-frango",
         imagem: "chicken-patty.avif",
@@ -50,16 +55,7 @@ const snacks = [
         descricao: "Empada de frango com recheio cremoso e temperos especiais, envolvida em uma massa amanteigada que derrete na boca. Perfeita para qualquer momento do dia."
     },
     {
-        produto: "Donuts de Chocolate",
-        url_produto: "donuts-de-chocolate",
-        imagem: "chocolate-donuts.avif",
-        precoUnitario: 3.20,
-        especificidade: "doce",
-        categoria: "salgadinhos",
-        caracteristicas: ["Cobertura de chocolate", "Fofo", "Irresistível"],
-        descricao: "Deliciosos donuts cobertos com chocolate, fofinhos por dentro e com uma camada crocante por fora. Perfeitos para adoçar o seu dia!"
-    },
-    {
+        id: 30,
         produto: "Bolo de Milho",
         url_produto: "bolo-de-milho",
         imagem: "corn-cake.jpg",

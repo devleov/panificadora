@@ -1,5 +1,6 @@
 const retail = [
     {
+        id: 15,
         produto: "Biscoito Trakinas Morango 126g",
         url_produto: "trakinas-de-morango",
         imagem: "pesky-strawberry.png",
@@ -10,6 +11,7 @@ const retail = [
         descricao: "Sabor irresistível em cada mordida! Trakinas de Morango combina biscoitos crocantes com um delicioso recheio cremoso de morango, trazendo uma explosão de sabor e diversão para seus momentos."
     },
     {
+        id: 16,
         produto: "Biscoito Wafer Chocolate 115g",
         url_produto: "biscoito-wafer-chocolate",
         imagem: "chocolate-cornstarch-cookie.png",
@@ -20,6 +22,7 @@ const retail = [
         descricao: "Delicie-se com o Biscoito Wafer de Chocolate Minueto. Camadas crocantes recheadas com um irresistível creme de chocolate, perfeito para qualquer hora do dia."
     },
     {
+        id: 17,
         produto: "Biscoito de Maisena de Chocolate 400g",
         url_produto: "biscoito-maisena-chocolate",
         imagem: "chocalate-maisena.png",
@@ -30,6 +33,7 @@ const retail = [
         descricao: "O tradicional Biscoito de Maisena Panco agora com um toque especial de chocolate. Sabor e textura que combinam perfeitamente com suas bebidas favoritas."
     },
     {
+        id: 18,
         produto: "Bala de Gelatina Sortida 150g",
         url_produto: "bala-gelatina-sortida",
         imagem: "gummy-mixed.png",
@@ -40,6 +44,7 @@ const retail = [
         descricao: "Deliciosas balas de gelatina com sabores sortidos. Uma explosão de cores e sabores para adoçar seus momentos."
     },
     {
+        id: 19,
         produto: "Barra de Chocolate com Amêndoas 100g",
         url_produto: "barra-chocolate-amendoas",
         imagem: "chocolate-almonds.png",
@@ -50,6 +55,7 @@ const retail = [
         descricao: "Barra de chocolate ao leite com pedaços crocantes de amêndoas. Uma combinação perfeita de cremosidade e crocância."
     },
     {
+        id: 20,
         produto: "Chips de Batata com Sal Marinho 68g",
         url_produto: "chips-batata-sal-marinho",
         imagem: "potato-chips-sea-salt.png",
@@ -60,6 +66,7 @@ const retail = [
         descricao: "Chips de batata crocantes temperados com sal marinho. Perfeitos para um lanche saboroso e leve."
     },
     {
+        id: 21,
         produto: "Amendoim Torrado com Sal 200g",
         url_produto: "amendoim-torrado-sal",
         imagem: "roasted-peanuts-salted.png",
@@ -70,6 +77,7 @@ const retail = [
         descricao: "Amendoim torrado na medida certa com um toque de sal. Uma opção prática e deliciosa para seus momentos de pausa."
     },
     {
+        id: 22,
         produto: "Feijão Carioca 1kg",
         url_produto: "feijao-carioca-1kg",
         imagem: "pinto-beans.png",
@@ -80,6 +88,7 @@ const retail = [
         descricao: "Feijão Carioca de alta qualidade, ideal para preparar refeições nutritivas e saborosas, garantindo o toque tradicional à sua cozinha."
     },
     {
+        id: 23,
         produto: "Pão de Forma Premium",
         url_produto: "pao-de-forma-premium",
         imagem: "shaped-bread-premium.png",
@@ -90,6 +99,7 @@ const retail = [
         descricao: "Pão de Forma Premium, maciez e sabor que fazem a diferença em suas receitas!"
     },
     {
+        id: 24,
         produto: "Arroz Guacira 5kg",
         url_produto: "arroz-guacira",
         imagem: "rice.png",

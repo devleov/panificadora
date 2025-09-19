@@ -1,0 +1,390 @@
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+/* Componentes */
+@import url("../../components/navbar.css");
+@import url("../../components/modalCart.css");
+@import url("../../components/footer.css");
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Configuração da apresentação da loja */
+
+.red-about {
+    position: relative;
+
+    height: 400px;
+    width: 100%;
+
+    background: url("/assets/imgs/pages/welcome/background/primary-background.jpg");
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+
+    /* background-color: gray; */
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Configuração da imagem */
+
+.red-about::after {
+    content: " ";
+    position: absolute;
+    height: 400px;
+    width: 100%;
+    background-color: black;
+    opacity: 0.8;
+}
+
+/* Configuração do conteúdo da apresentação */
+
+.red-content {
+    position: absolute;
+    z-index: 1;
+
+    display: flex;
+    flex-direction: column;
+    row-gap: 64px;
+    align-items: center;
+
+    /* background-color: blueviolet; */
+}
+
+.red-line {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    padding: 30px;
+    padding-top: 0;
+    padding-bottom: 0;
+
+    /* background-color: red; */
+}
+
+/* Configuração da caixa dos textos dinâmicos */
+
+.red-about .red-content .red-line h1 {
+    font-family: "Merriweather", serif;
+    font-size: 34px;
+    font-weight: 900;
+    text-shadow: 0 0 29px #C19A6B;
+    color: #C19A6B;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.red-content-dinamic {
+    display: flex;
+    column-gap: 7px;
+    height: 24px;
+}
+
+.red-content-dinamic p {
+    font-family: "Open Sans", serif;
+    font-size: 18px;
+    color: #F8ECD4;
+
+    /* background-color: brown; */
+}
+
+.red-content-dinamic p span {
+    height: 24px;
+    width: 300px;
+
+    color: #D2691E;
+    font-family: "Open Sans", serif;
+    font-size: 18px;
+    font-weight: 900;
+    text-shadow: 0 0 5px black;
+    position: relative;
+
+    /* background-color: #F8ECD4; */
+}
+
+.red-content-dinamic p span::after {
+    content: "";
+    margin-left: 4px;
+    position: absolute;
+    height: 24px;
+    width: 6px;
+    background-color: #8B4513;
+}
+
+.red-content-dinamic span.espera::after {
+    animation: blink 0.5s infinite;
+    background-color: rgba(139, 69, 19, 0.5);
+}
+
+@keyframes blink {
+    0% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+/* Configuração do conteúdo do botão */
+
+.red-content .btn-about-shop button {
+    font-family: "Open Sans", serif;
+
+    font-size: 14px;
+    font-weight: 700;
+    height: 50px;
+    width: 220px;
+    border-radius: 10px;
+    border: none;
+
+    transition: background-color .2s;
+}
+
+
+.red-content .btn-about-shop button:hover {
+    background-color: #F4C430;
+    cursor: pointer;
+}
+
+.red-content .btn-about-shop img {
+    position: relative;
+    padding-right: 10px;
+    width: 22px;
+    left: 0;
+    transition: .2s left;
+}
+
+.red-content a button:hover img {
+    left: 4px;
+}
+
+/* Configuração do horário de funcionamento */
+.box-info-shop {
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 10px;
+    /* border: 1px solid black; */
+}
+
+.hour-open-shop {
+    text-align: center;
+    font-weight: bold;
+    border-radius: 4px;
+    padding: 8px 12px;
+    font-size: 16px;
+    font-family: "Roboto", sans-serif;
+}
+
+
+
+
+
+/* Configuração da seção de produtos */
+
+.products {
+    min-height: 600px;
+    background: linear-gradient(to center, rgba(255, 0, 0, 0), #b18d46);
+    padding: 40px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: space-between;
+    flex-wrap: wrap;
+    column-gap: 65px;
+    row-gap: 25px;
+
+    margin-bottom: 50px;
+}
+
+.products .box-products {
+    height: 290px;
+    width: 320px;
+    border-radius: 15px;
+    box-shadow: 0 10px 12px gray;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    transition: all .2s;
+}
+
+.products .box-products .img-product {
+    position: relative;
+    height: 290px;
+    width: 320px;
+    overflow: hidden;
+    position: relative;
+    border-radius: 15px;
+}
+
+.products .box-products .img-product img {
+    height: 100%;
+    width: 100%;
+    border-radius: 15px;
+    object-fit: cover;
+    filter: brightness(40%);
+
+    transition: all .1s ease;
+}
+
+
+.products .box-products:hover .img-product img {
+    transform: scale(1.06);
+    filter: brightness(50%);
+    cursor: pointer;
+}
+
+.products .box-products a {
+    position: absolute;
+
+    height: 290px;
+    width: 320px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    border-radius: 15px;
+
+    font-family: "Open Sans";
+    font-size: 25px;
+    color: white;
+    z-index: 1;
+}
+
+
+
+
+
+
+
+/* Configuração do sobre da empresa */
+
+.about {
+    min-height: 460px;
+    width: 100%;
+    padding: 30px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    column-gap: 50px;
+
+    background:
+        linear-gradient(to bottom, rgb(0, 0, 0) 5%, rgba(255, 255, 255, 0) 40%),
+        url('/assets/imgs/pages/welcome/background/about-background.avif');
+    background-size: cover;
+    background-position: center;
+
+
+    position: relative;
+}
+
+
+.about:after {
+    content: "";
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-color: black;
+    opacity: .8;
+}
+
+.about .box-content-about {
+    z-index: 1;
+
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+    width: 900px;
+    color: white;
+}
+
+.about .box-content-about h2 {
+    font-family: "Merriweather", serif;
+    font-weight: 900;
+    font-size: 26px;
+    color: #C19A6B;
+}
+
+.about .box-content-about p {
+    font-family: "Open Sans", serif;
+}
+
+.box-logo-about {
+    z-index: 1;
+    height: 150px;
+    width: 200px;
+
+    /* background-color: red; */
+}
+
+.box-logo-about img {
+    height: 150px;
+    width: 200px;
+}
+
+
+
+
+
+
+/* Configuração da localização da loja */
+.box-location-shop {
+    height: 400px;
+    width: 100%;
+    background-color: gray;
+
+    margin-bottom: 100px;
+}
+
+.box-location-shop iframe {
+    width: 100%;
+    height: 100%;
+}
+
+
+/* Configuração do botão de whatsapp */
+
+.whatsapp-contact {
+    position: fixed;
+    height: 70px;
+    width: 70px;
+    background-color: #C19A6B;
+    border-radius: 10px;
+
+    bottom: 40px;
+    right: 40px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    transition: background-color .2s;
+    z-index: 99;
+}
+
+.whatsapp-contact:hover {
+    cursor: pointer;
+    background-color: #987954;
+}
+
+.whatsapp-contact img {
+    width: 42px;
+}

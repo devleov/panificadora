@@ -1,0 +1,113 @@
+{{!-- Template para cada produto da panificadora --}}
+
+<!DOCTYPE html>
+
+<html lang="pt">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="pães, bolos, doces, refrigerantes">
+    <meta name="author" content="Léo Vitor">
+    <title>{{product}} - Seção de {{category}}</title>
+
+    <link rel="website icon" href="/assets/icons/logo.png">
+
+    {{!-- CSS BOOTSTRAP --}}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="/css/pages/product/style.css">
+    <link rel="stylesheet" href="/css/pages/product/responsive.css">
+</head>
+
+<body>
+    {{> navbar }}
+
+    <div class="box-product">
+        <div class="box-img-product" id="box-img-product">
+            <img id="img-product" src="/assets/imgs/pages/section/{{item.imagem}}"></img>
+        </div>
+
+        <div class="info-product">
+            <div class="content-product">
+                <h2 class="mb-0 fs-1 fw-bold" id="nameProduct">{{item.produto}}</h2>
+                <p class="mb-0 fs-2" id="priceProduct">{{formatCurrency item.precoUnitario}}</p>
+            </div>
+
+            <div class="cart-product w-75">
+                <div>
+                    <label class="form-label" for="quanty">Quantidade:</label>
+                    <input class="form-control" min="1" max="10" value="1" id="quanty" type="number">
+                </div>
+
+                <p class="cart-warn" id="cart-warn"></p>
+
+                <div class="d-flex flex-column gap-1">
+                    <button id="add-to-cart" class="btn btn-md btn-primary">Comprar
+                        agora</button>
+                    <button id="add-to-cart" class="btn btn-md btn-secondary">Adicionar no
+                        carrinho</button>
+                </div>
+            </div>
+
+            <div class="feature-product">
+                <h3>Características</h3>
+
+                <ul>
+                    <li>{{index item.caracteristicas 0}}</li>
+                    <li>{{index item.caracteristicas 1}}</li>
+                    <li>{{index item.caracteristicas 2}}</li>
+                </ul>
+            </div>
+
+            <div class="describe-product">
+                <p>{{item.descricao}}</p>
+            </div>
+        </div>
+    </div>
+
+    <section class="box-main-products">
+        <h3>Você pode gostar...</h3>
+
+        <div class="box-cards" id="box-cards">
+
+            {{#each itemSuggestion}}
+            <a style="text-decoration: none;" href="{{url_produto}}">
+                <div class="card-item d-flex flex-column p-2" id="{{id}}">
+                    <div class="card-img-item rounded">
+                        <img class="rounded" src="/assets/imgs/pages/section/{{imagem}}">
+                    </div>
+
+                    <div class="card-body">
+                        <p class="card-item-name fs-5 mb-0">{{produto}}</p>
+                        <p class="card-item-price fs-6 mb-0">{{formatCurrency precoUnitario}}</p>
+                    </div>
+                </div>
+            </a>
+            {{/each}}
+
+        </div>
+    </section>
+
+    <div class="text-center mt-4 mb-5">
+        <a href="{{btnUrlBack}}" class="btn btn-lg" style="background-color: #F8ECD4;">Voltar</a>
+    </div>
+
+    {{> modalCart}}
+    {{> footer}}
+
+    {{!-- JS BOOTSTRAP --}}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+
+    {{!-- EVENTOS DO CARRINHO DE COMPRAS --}}
+    <script type="module" src="/js/func/cart/otherEvents.js"></script>
+
+    {{!-- CARREGAMENTO DO JAVASCRIPT DA PÁGINA --}}
+    <script type="module" src="/js/pages/product/script.js"></script>
+    <script src="https://kit.fontawesome.com/6c5b2a3ba2.js" crossorigin="anonymous"></script>
+    <script src="/js/jquery.js"></script>
+</body>
+
+</html>
