@@ -4,6 +4,11 @@ import changePriceEnd from "./changePriceEnd.js";
 import changeQtdCart from "./changeQtdCart.js";
 
 /* ================================
+   IMPORTAÇÃO DA FUNÇÃO DE AVISO
+   ================================ */
+import showToast from "../../components/warn.js";
+
+/* ================================
    PREENCHE O CARRINHO COM LOCALSTORAGE AO ABRIR
    ================================ */
 const offcanvas = document.querySelector(".offcanvas");
@@ -39,9 +44,9 @@ offcanvas.addEventListener("show.bs.offcanvas", () => {
                                 style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden; width: 130px;">
                                 ${product}</p>
                             <p class="card-item-price fs-6 mb-0">${priceEnd.toLocaleString("pt-br", {
-                                currency: "BRL",
-                                style: "currency",
-                            })}</p>
+                            currency: "BRL",
+                            style: "currency",
+                        })}</p>
                         </div>
                     </div>
                 </a>
@@ -102,21 +107,21 @@ $(document).on("click", ".del-item", (productClicked) => {
 });
 
 // Clique no botão de comprar (adiciona ao carrinho)
-$(".btn-buy").each((_, el) => {
-    $(el).on("click", (btnClicked) => {
-        const item = btnClicked.target.closest(".item");
-        const inputQtd = item.querySelector(".input-qtd");
+$(document).on("click", ".btn-buy", (btnClicked) => {
+    const item = btnClicked.target.closest(".item");
+    const inputQtd = item.querySelector(".input-qtd");
 
-        const id = item.id;
+    const id = item.id;
 
-        if (localStorage.getItem(id)) {
-            const currentQtd = parseInt(localStorage.getItem(id));
-            localStorage.setItem(id, currentQtd + 1);
+    if (localStorage.getItem(id)) {
+        const currentQtd = parseInt(localStorage.getItem(id));
+        localStorage.setItem(id, currentQtd + parseInt(inputQtd.value));
+        showToast();
+        
+        return;
+    }
 
-            return;
-        }
-
-        localStorage.setItem(id, inputQtd.value);
-        changeQtdCart();
-    })
+    localStorage.setItem(id, inputQtd.value);
+    changeQtdCart();
+    showToast();
 });

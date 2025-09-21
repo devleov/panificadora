@@ -2,7 +2,7 @@
    IMPORTAÇÕES DE DEPENDÊNCIAS
    ================================ */
 import Database from "../../db/Database.js";
-import filterBySpecificity from "../../func/filterFeature.js";
+import filterBySpecificity from "../../func/filterSpecificity.js";
 import filterByFeature from "../../func/filterFeature.js";
 
 /* ================================
@@ -44,23 +44,42 @@ function fillProductBox(dataProducts, boxProducts) {
     boxProducts.innerHTML = "";
 
     // Para cada produto, cria um card e insere no container
-    dataProducts.forEach((element) => {
+    dataProducts.forEach((el) => {
         const container = document.createElement("div");
 
         const card = `
-            <a style="text-decoration: none;" href="${element.categoria}/${element.url_produto}">
-                <div class="card-item d-flex flex-column p-2" id="${element.id}">
-                    <div class="card-img-item rounded">
-                        <img class="rounded" src="/assets/imgs/pages/section/${element.imagem}">
+            <div class="item" id="${el.id}">
+                <a style="text-decoration: none;" href="${category}/${el.url_produto}">
+                    <div class="card-item d-flex flex-column p-2 gap-2">
+                        <div class="card-img-item rounded">
+                            <img class="rounded" src="/assets/imgs/pages/section/${el.imagem}">
+                        </div>
+
+                        <div class="card-body">
+                            <p class="card-item-name fs-5 mb-0">${el.produto}</p>
+                            <p class="card-item-price fs-6 mb-0">${el.precoUnitario.toLocaleString("pt-br", {
+                                style: "currency",
+                                currency: "BRL",
+                            })}</p>
+                        </div>
+                </a>
+
+                <div class="card-footer d-flex">
+                    <div class="d-flex justify-content-between align-items-center me-2 border rounded">
+                        <div role="button" class="qtd-add px-2 py-1"><i style="pointer-events: none;"
+                                class="fa-solid fa-plus"></i></div>
+
+                        <input min="1" type="text" value="1"
+                            class="input-qtd form-control mx-auto text-center border-0 w-75">
+
+                        <div role="button" class="qtd-rem px-2 py-1"><i style="pointer-events: none;"
+                                class="fa-solid fa-minus"></i></div>
                     </div>
-                    <div class="card-body">
-                        <p class="card-item-name fs-5 mb-0">${element.produto}</p>
-                        <p class="card-item-price fs-6 mb-0">
-                            ${element.precoUnitario.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}
-                        </p>
+                    <button class="btn-buy btn text-white"
+                        style="background-color: #c5a073; letter-spacing: .5px; font-family: 'Merriweather', sans-serif;">COMPRAR</button>
                     </div>
                 </div>
-            </a>
+            </div>
         `;
 
         container.innerHTML = card;

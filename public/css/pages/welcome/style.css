@@ -11,6 +11,11 @@
     box-sizing: border-box;
 }
 
+/* Configuração de fonte da nav-bar */
+.nav-links {
+    font-family: "Open Sans", sans-serif;
+}
+
 /* Configuração da apresentação da loja */
 
 .red-about {

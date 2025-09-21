@@ -4,6 +4,7 @@
 @import url("../../components/navbar.css");
 @import url("../../components/modalCart.css");
 @import url("../../components/footer.css");
+@import url("../../components/warn.css");
 
 * {
     margin: 0;
