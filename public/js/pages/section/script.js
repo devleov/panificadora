@@ -29,6 +29,7 @@ const boxProducts = document.getElementById("box-products"); // Container onde o
 const btnInputSearch = document.getElementById("btnInputSearch"); // Botão de pesquisar
 const inputSearch = document.getElementById("inputSearch"); // Campo de texto de pesquisa
 
+const products = Database.filter((el) => el.categoria == category); // Produtos referentes a categoria acessada obtida pelo banco de dados
 
 /* ================================
    FUNÇÃO: RENDERIZAÇÃO DOS PRODUTOS
@@ -37,18 +38,16 @@ function fillProductBox(dataProducts, boxProducts) {
     // Verifica se os dados são válidos
     if (!dataProducts || !Array.isArray(dataProducts)) return;
 
-    // Atualiza a quantidade de produtos encontrados
-    spanQuantyItem.innerText = dataProducts.length;
-
     // Limpa o container antes de renderizar os produtos
     boxProducts.innerHTML = "";
 
     // Para cada produto, cria um card e insere no container
-    dataProducts.forEach((el) => {
-        const container = document.createElement("div");
+    dataProducts.slice(0, maxQtdShow).forEach((el) => {
+        const item = document.createElement("div");
+        item.className = "item";
+        item.id = el.id;
 
-        const card = `
-            <div class="item" id="${el.id}">
+        const dataItem = `
                 <a style="text-decoration: none;" href="${category}/${el.url_produto}">
                     <div class="card-item d-flex flex-column p-2 gap-2">
                         <div class="card-img-item rounded">
@@ -58,9 +57,81 @@ function fillProductBox(dataProducts, boxProducts) {
                         <div class="card-body">
                             <p class="card-item-name fs-5 mb-0">${el.produto}</p>
                             <p class="card-item-price fs-6 mb-0">${el.precoUnitario.toLocaleString("pt-br", {
-                                style: "currency",
-                                currency: "BRL",
-                            })}</p>
+            style: "currency",
+            currency: "BRL",
+        })}</p>
+                        </div>
+                </a>
+
+                <div class="card-footer d-flex">
+                    <div class="d-flex justify-content-between align-items-center me-2 border rounded">
+                        <div role="button" class="qtd-add px-2 py-1"><i style="pointer-events: none;"
+                                class="fa-solid fa-plus"></i></div>
+
+                        <input min="1" type="text" value="1"
+                            class="input-qtd form-control mx-auto text-center border-0 w-75">
+
+                        <div role="button" class="qtd-rem px-2 py-1"><i style="pointer-events: none;"
+                                class="fa-solid fa-minus"></i></div>
+                    </div>
+                    <button class="btn-buy btn text-white"
+                        style="background-color: #c5a073; letter-spacing: .5px; font-family: 'Merriweather', sans-serif;">COMPRAR</button>
+                    </div>
+                </div>
+        `;
+
+        item.innerHTML = dataItem;
+        boxProducts.appendChild(item);
+
+        // Atualiza a quantidade de produtos encontrados
+        spanQuantyItem.innerHTML = boxProducts.children.length;
+    });
+};
+
+/* ================================
+   FUNÇÃO: CARREGAR MAIS PRODUTOS
+   ================================ */
+
+let currentQtdProducts = boxProducts.children.length;
+const maxQtdShow = Database[Database.length - 1].maxQtdShow;
+let btnLoadMore;
+
+if (currentQtdProducts < products.length) {
+    // Botão "carregar mais"
+    btnLoadMore = document.createElement("div")
+    btnLoadMore.className = "btnLoadMore text-center mt-4 mb-5";
+    btnLoadMore.style = "display: none";
+    btnLoadMore.innerHTML = '<button class="btn btn-lg" style="background-color: #e3bd71;"><i class="fa-solid fa-plus me-2"></i> Carregar mais</button>';
+
+    $(".box-main-products").after(btnLoadMore);
+
+    $(btnLoadMore).css("display", "block");
+}
+
+function loadMore() {
+    currentQtdProducts = boxProducts.children.length;
+
+    const newProducts = products.slice(currentQtdProducts, currentQtdProducts + 5);
+
+    // Para cada produto, cria um card e insere no container
+    newProducts.forEach((el) => {
+        const item = document.createElement("div");
+        item.className = "item";
+        item.id = el.id;
+
+        const dataItem = `
+                <a style="text-decoration: none;" href="${category}/${el.url_produto}">
+                    <div class="card-item d-flex flex-column p-2 gap-2">
+                        <div class="card-img-item rounded">
+                            <img class="rounded" src="/assets/imgs/pages/section/${el.imagem}">
+                        </div>
+
+                        <div class="card-body">
+                            <p class="card-item-name fs-5 mb-0">${el.produto}</p>
+                            <p class="card-item-price fs-6 mb-0">${el.precoUnitario.toLocaleString("pt-br", {
+            style: "currency",
+            currency: "BRL",
+        })}</p>
                         </div>
                 </a>
 
@@ -82,11 +153,20 @@ function fillProductBox(dataProducts, boxProducts) {
             </div>
         `;
 
-        container.innerHTML = card;
-        boxProducts.appendChild(container);
+        item.innerHTML = dataItem;
+        boxProducts.appendChild(item);
     });
-};
 
+    /* Se a quantidade de produtos exibindo for igual, apagar o botão */
+    if (boxProducts.children.length >= products.length) btnLoadMore.remove();
+
+    spanQuantyItem.innerHTML = boxProducts.children.length;
+}
+
+/* ================================
+   EVENTO "CARREGAR MAIS" BOTÃO CLICADO
+   ================================ */
+$(".btnLoadMore").on("click", loadMore);
 
 /* ================================
    FILTRAGEM DE PRODUTOS
@@ -99,7 +179,7 @@ filterSelect.addEventListener("change", () => {
 
     // Caso selecione "todos", mostra todos os produtos da categoria
     if (valueOption == "todos") {
-        dataFiltred = Database.filter((el) => el.categoria == category);
+        dataFiltred = products;
         return fillProductBox(dataFiltred, boxProducts);
     };
 
@@ -128,11 +208,11 @@ function normalizeString(string) {
 function searchByName() {
     // Se o campo de pesquisa estiver vazio, mostra todos da categoria
     if (!inputSearch.value) {
-        dataFiltred = Database.filter((el) => el.categoria == category);
+        dataFiltred = products;
         return fillProductBox(dataFiltred, boxProducts);
     }
 
-    // Filtra apenas produtos que contenham o texto pesquisado
+    // Filtra apenas produtos que contenham o texto pesquisado e estejam aparecendo no DOM 
     dataFiltred = Database.filter((el) =>
         el.categoria == category &&
         normalizeString(el.produto).includes(normalizeString(inputSearch.value))

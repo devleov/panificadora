@@ -21,7 +21,6 @@ router.get("/:category/:urlProduct", (req, res) => {
     /* Embaralha os produtos semelhantes ao que foi acessado */
     const itemSuggestion = shuffleArray(similarProducts).slice(0, 4);
 
-
     res.render("layouts/product", {
         product: dataProduct.produto,
         category: category,
@@ -36,8 +35,10 @@ router.get("/:category/:urlProduct", (req, res) => {
 router.get("/:category", (req, res) => {
     const { category } = req.params;
 
+    const maxQtdShow = Database[Database.length - 1].maxQtdShow;
+
     /* Filtrando pela categoria */
-    const items = Database.filter(element => element.categoria == category);
+    const items = Database.filter(element => element.categoria == category).slice(0, maxQtdShow);
 
     /* Aqui, eu carrego o layout como se fosse o template para não precisar carregar o template, eu fiz isso por que, como categoria, é algo que muda, preciso fazer com que o "template" que estou colocando abaixo, e percebi que nos templates que seriam eu não precisava colocar nada dentro de especial que fizesse que criasse um template diferente para cada categoria. */
 

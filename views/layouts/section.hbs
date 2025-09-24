@@ -27,7 +27,11 @@
         <img class="position-absolute top-0 left-0 opacity-25" style="height: 100%; width: 100%; object-fit: cover;"
             src="{{img_category}}" alt="seção de {{category}}">
 
-        <h1 class="position-relative color-dark" style="padding: 0 10%;">Seção de {{category}}</h1>
+        <h1 class="position-relative color-dark w-75" style="padding: 0 10%;">Seção de {{category}}</h1>
+
+        <div class="position-relative w-25">
+            <a href="/#products" class="btn btn-secondary fs-5 text-decoration-none text-white"><i class="fa-solid fa-arrow-left me-2"></i> Voltar</a>
+        </div>
     </div>
 
     <section class="d-flex justify-content-between align-items-center border flex-wrap"
@@ -60,7 +64,7 @@
                 items}}</span></p>
     </section>
 
-    <main class="box-main-products mt-5 mb-5" style="padding: 0 10%;">
+    <main class="box-main-products mt-5" style="margin-bottom: 100px; padding: 0 10%;">
         <div class="d-flex justify-content-between align-items-center flex-wrap" id="box-products"
             style="min-height: 350px; row-gap: 20px;">
             {{#each items}}
@@ -97,10 +101,6 @@
         </div>
 
     </main>
-
-    <div class="text-center mt-4 mb-5">
-        <a href="/#products" class="btn btn-lg" style="background-color: #F8ECD4;">Voltar</a>
-    </div>
 
     {{> footer}}
     {{> modalCart}}
