@@ -13,7 +13,7 @@ import showToast from "../../components/warn.js";
    ================================ */
 const offcanvas = document.querySelector(".offcanvas");
 
-offcanvas.addEventListener("show.bs.offcanvas", () => {
+offcanvas?.addEventListener("show.bs.offcanvas", () => {
     let data = "";
     const box_items = document.querySelector(".box-items");
 

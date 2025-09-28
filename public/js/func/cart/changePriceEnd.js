@@ -11,7 +11,7 @@ export default function changePriceEnd(productClicked) {
     const inputQtd = item.querySelector(".input-qtd");
 
     // Campo de preço no card
-    const price = item.querySelector(".card-item-price");
+    const price = item.querySelector(".card-item-price") ? item.querySelector(".card-item-price") : item.querySelector(".total-item-cart-shopping");
 
     // Produto correspondente no "banco de dados"
     const product = Database.find((el) => el.id == item.id);
@@ -33,13 +33,13 @@ export default function changePriceEnd(productClicked) {
     const priceEnd = priceUn * currentQtd;
 
     // Mostra preço atualizado no front-end
-    price.innerHTML = priceEnd.toLocaleString("pt-br", {
+    $(price).text(priceEnd.toLocaleString("pt-br", {
         currency: "BRL",
         style: "currency"
-    });
+    }));
 
-    // Se estiver no carrinho (offcanvas), também atualiza no localStorage
-    if (item.closest(".offcanvas")) {
+    // Se estiver no carrinho (offcanvas) ou na página dos produtos do carrinho de compras, atualizar diretamente o subTotal, e para isso, atualiza-se o localStorage
+    if (item.closest(".offcanvas") || item.closest(".box-product-cart")) {
         localStorage.setItem(item.id, inputQtd.value);
     }
 }

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{title}}</title>
+
+    {{!-- CSS BOOTSTRAP --}}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="/css/pages/{{page}}/style.css">
+    {{!--
+    <link rel="stylesheet" href="/css/pages/{{page}}/responsive.css"> --}}
+
+    <link rel="icon" href="/assets/icons/logo.png">
+</head>
+
+<body>
+    {{> navbar}}
+
+    <div style="padding: 0 10%" class="mt-5 mb-5" style="height: 100vh;">
+        <div class="container">
+            <div class="d-flex justify-content-between flex-wrap mb-3">
+                <p class="h1">Carrinho de compras</p>
+
+                <a class="history-back btn btn-secondary fs-5 text-decoration-none text-white"><i
+                        class="fa-solid fa-arrow-left me-2"></i> Voltar</a>
+            </div>
+
+            <div class="row gap-4 h-100">
+                <div class="col gap-2 p-4 me-2 rounded" style="background-color: #cccccc2d;">
+                    <div class="box-product-cart d-flex flex-column gap-3 flex-wrap"></div>
+                </div>
+
+                <div class="col order-summary d-flex gap-5 flex-column p-4 rounded justify-content-between"
+                    style="min-height: 400px; max-width: 375px; background-color: #c5a07336">
+                    <div>
+                        <div>
+                            <p class="h2">Resumo do pedido</p>
+                            <hr>
+                        </div>
+
+                        <div>
+                            <span class="d-flex justify-content-between">
+                                <p style="color: cadetblue" class="fw-bold fs-6">Frete:</p>
+                                <p style="color: cadetblue" class="fw-bold fs-6 freight-cart-shopping">R$ 0,00</p>
+                            </span>
+                            <span class="d-flex justify-content-between">
+                                <p style="color: red" class="fw-bold fs-6">Descontos:</p>
+                                <p style="color: red" class="discount-cart-shopping fw-bold fs-6">R$ 0,00</p>
+                            </span>
+                            <span class="d-flex justify-content-between">
+                                <p style="color: green" class="fw-bold fs-5">Sub-total:</p>
+                                <p style="color: green" class="fw-bold fs-5 sub-total-cart-shopping">R$ 0,00</p>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="d-flex flex-column gap-3">
+                        <div class="coupon-discount">
+                            <p>Tem cupom de desconto?</p>
+
+                            <div class="input-group mt-2">
+                                <input class="form-control input-coupon-discont" type="text" placeholder="Coloque aqui..">
+                                <button class="btn btn-success btn-coupon-discount">Ativar</button>
+                            </div>
+
+                            <div class="feedback-is-invalid">
+                                <p class="mb-0"></p>
+                            </div>
+                            <div class="feedback-is-valid">
+                                <p class="mb-0"></p>
+                            </div>
+                        </div>
+
+                        <div class="consult-cep">
+                            <p>Informe seu CEP abaixo, para calcularmos o frete, é importante.</p>
+
+                            <div class="input-group mt-2">
+                                <input class="input-consult-cep form-control" type="text" placeholder="Informe seu CEP">
+
+                                <button class="btn-consult-cep btn btn-primary">Consultar</button>
+                            </div>
+                            <div class="feedback-is-invalid">
+                                <p class="mb-0"></p>
+                            </div>
+                            <div class="feedback-is-valid">
+                                <p class="mb-0"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    {{> footer}}
+
+    {{!-- JS BOOTSTRAP --}}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+
+    {{!-- EVENTOS DO CARRINHO DE COMPRAS --}}
+    <script type="module" src="/js/func/cart/otherEvents.js"></script>
+
+    {{!-- CARREGAMENTO DO JAVASCRIPT DA PÁGINA --}}
+    <script type="module" src="/js/pages/{{page}}/script.js"></script>
+    <script src="/js/components/historyBack.js"></script>
+    <script src="https://kit.fontawesome.com/6c5b2a3ba2.js" crossorigin="anonymous"></script>
+    <script src="/js/jquery.js"></script>
+</body>
+
+</html>

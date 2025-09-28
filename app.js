@@ -24,6 +24,7 @@ app.use("/categoria", router);
 
 // Configuração do express-handlebars
 import { engine } from "express-handlebars";
+import { title } from "process";
 
 app.engine("hbs", engine({
     helpers: {
@@ -62,6 +63,14 @@ app.get("/", (req, res) => {
         page: "welcome",
     });
 });
+
+app.get("/carrinho", (req, res) => {
+    res.render("layouts/cart", {
+        title: "Carrinho de compras",
+        page: "cart",
+        layout: false,
+    });
+})
 
 app.listen(port, () => {
     console.log("Servidor iniciado na porta:", port)

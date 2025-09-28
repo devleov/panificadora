@@ -6,4 +6,4 @@ import changeSubTotalCart from "../../func/cart/changeSubTotalCart.js"
 
 // Executa logo ao carregar a página (caso já tenha itens)
 changeQtdCart();
-changeSubTotalCart();
+changeSubTotalCart(".sub-total-offcanvas");
