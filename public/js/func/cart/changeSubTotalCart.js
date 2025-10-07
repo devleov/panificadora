@@ -6,13 +6,22 @@ import Database from "../../db/Database.js";
 export default function changeSubTotalCart() {
     let subTotal = 0;
 
-    for (let i = 0; i < localStorage.length; i++) {
-        const key = localStorage.key(i);
-        const value = localStorage.getItem(key);
+    if (!eachStorage().arrayStorage) return;
 
-        const precoUnitario = Database.find((el) => el.id == key).precoUnitario;
+    const value = eachStorage().arrayStorage;
 
-        subTotal += (precoUnitario * value);
+    for (let i = 0; i < value.length; i++) {
+        const id = value[i].id;
+        const qtd = value[i].qtd;
+
+        const item = Database.find((el) => el.id == id);
+        
+        /* Se não existe o ID no banco apaga ele do localStorage */
+        if (!item) {
+            localStorage.removeItem(id);
+        } else {
+            subTotal += (item.precoUnitario * qtd);
+        }
     }
 
     /* Se o usuário estiver no carrinho de compras é para calcular o sub-total sob descontos e fretes. */
@@ -27,6 +36,8 @@ export default function changeSubTotalCart() {
         currency: "BRL", 
         style: "currency",
     }));
+
+    return subTotal;
 }
 
 function removeCurrency(string) {

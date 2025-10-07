@@ -9,8 +9,6 @@ export default function FilterBySpecificity(category, specificity) {
     // Specificity = especificidade dos produto que deseja filtrar
     // Length = quantidade de itens que quer retornar da filtragem
 
-    console.log(category, specificity)
-
     let data;
 
     if (specificity == "todos") {

@@ -5,5 +5,18 @@
 @import url("../../components/footer.css");
 
 p {
-    margin: 0 !important; 
+    margin: 0 !important;
+}
+
+/* Estilização de aviso de consulta de CEP */
+.invalid-feedback, .valid-feedback {
+    bottom: -1.5rem;
+    left: 0;
+}
+
+@media screen and (max-width: 1000px) {
+    .row {
+        flex-direction: column; 
+        align-items: center;
+    }
 }

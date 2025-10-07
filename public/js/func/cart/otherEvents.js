@@ -9,7 +9,7 @@ import changeQtdCart from "./changeQtdCart.js";
 import showToast from "../../components/warn.js";
 
 /* ================================
-   PREENCHE O CARRINHO COM LOCALSTORAGE AO ABRIR
+   PREENCHE O MODAL DO CARRINHO COM LOCALSTORAGE AO ABRIR
    ================================ */
 const offcanvas = document.querySelector(".offcanvas");
 
@@ -17,22 +17,33 @@ offcanvas?.addEventListener("show.bs.offcanvas", () => {
     let data = "";
     const box_items = document.querySelector(".box-items");
 
+    if (!eachStorage().arrayStorage) return;
+
+    const value = eachStorage().arrayStorage;
+
     // Para cada item no localStorage, monta o HTML correspondente
-    for (let i = 0; i < localStorage.length; i++) {
-        const id = localStorage.key(i);
-        const value = localStorage.getItem(id);
+    for (let i = 0; i < value.length; i++) {
 
-        const item = Database.find((el) => el.id == id);
+        const item = Database.find((el) => el.id == value[i].id);
 
-        const product = item.produto;
-        const priceEnd = item.precoUnitario * value;
-        const category = item.categoria;
-        const url_product = item.url_produto;
-        const img = item.imagem;
+        /* Dados obtidos através do localStorage percorrido através de eachStorage() */
+        const id = value[i].id;
+        const qtd = value[i].qtd;
 
-        data += `
+        /* Se não existe o ID no banco apaga ele do localStorage */
+        if (!item) {
+            localStorage.removeItem(id);
+        } else {
+
+            const product = item.produto;
+            const priceEnd = item.precoUnitario * qtd;
+            const category = item.categoria;
+            const url_product = item.url_produto;
+            const img = item.imagem;
+
+            data += `
             <div class="item d-flex justify-content-between align-items-center" id="${id}">
-                <a href="${category}/${url_product}" style="color: black; text-decoration: none">
+                <a href="${url_product}" style="color: black; text-decoration: none">
                     <div class="d-flex align-items-center gap-2">
                         <div>
                             <img class="rounded" src="/assets/imgs/pages/section/${img}"
@@ -44,9 +55,9 @@ offcanvas?.addEventListener("show.bs.offcanvas", () => {
                                 style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden; width: 130px;">
                                 ${product}</p>
                             <p class="card-item-price fs-6 mb-0">${priceEnd.toLocaleString("pt-br", {
-                            currency: "BRL",
-                            style: "currency",
-                        })}</p>
+                currency: "BRL",
+                style: "currency",
+            })}</p>
                         </div>
                     </div>
                 </a>
@@ -57,7 +68,7 @@ offcanvas?.addEventListener("show.bs.offcanvas", () => {
                         <div role="button" class="qtd-add"><i style="pointer-events: none;"
                                 class="px-2 fa-solid fa-plus"></i></div>
 
-                        <input min="1" type="text" value="${value}" class="input-qtd form-control text-center border-0">
+                        <input min="1" type="text" value="${qtd}" class="input-qtd form-control text-center border-0">
 
                         <div role="button" class="qtd-rem"><i style="pointer-events: none;"
                                 class="px-2 fa-solid fa-minus"></i></div>
@@ -68,13 +79,11 @@ offcanvas?.addEventListener("show.bs.offcanvas", () => {
                 </div>
             </div>
         `;
+        }
     }
 
     // Insere os itens renderizados no carrinho
     box_items.innerHTML = data;
-
-    // Atualiza subtotal
-    changeSubTotalCart();
 });
 
 /* ================================
@@ -113,15 +122,24 @@ $(document).on("click", ".btn-buy", (btnClicked) => {
 
     const id = item.id;
 
+    /* Se o item já existir no carrinho, adicionar mais um no carrinho */
     if (localStorage.getItem(id)) {
         const currentQtd = parseInt(localStorage.getItem(id));
         localStorage.setItem(id, currentQtd + parseInt(inputQtd.value));
-        showToast();
-        
+
+        /* Se não existir no botão que clicou href mostrar aviso de item adicionado */
+        if (!btnClicked.target.href) {
+            showToast();
+        }
+
         return;
     }
 
     localStorage.setItem(id, inputQtd.value);
     changeQtdCart();
-    showToast();
+
+    /* Se não existir no botão que clicou href mostrar aviso de item adicionado */
+    if (!btnClicked.target.href) {
+        showToast();
+    }
 });

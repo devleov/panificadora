@@ -24,7 +24,7 @@ app.use("/categoria", router);
 
 // Configuração do express-handlebars
 import { engine } from "express-handlebars";
-import { title } from "process";
+import Database from "./public/js/db/Database.js";
 
 app.engine("hbs", engine({
     helpers: {
@@ -70,7 +70,46 @@ app.get("/carrinho", (req, res) => {
         page: "cart",
         layout: false,
     });
-})
+});
+
+app.post("/validationID", (req, res) => {
+    try {
+        const dataValidation = [];
+
+        if (!req.body) return res.json({ message: "Não existe corpo na requisição!" });
+
+        const { arrayStorage } = req.body;
+
+        if (!typeof arrayStorage === "object") {
+            return res.json({ message: "O corpo precisa ser um objeto!" });
+        }
+
+        for (let i = 0; i < arrayStorage.length; i++) {
+
+            const id = parseInt(arrayStorage[i].id);
+
+            /* Verificando existência de ID no banco de dados */
+            const existentID = Database.find((el) => el.id === id);
+
+            /* Não houve retorno, não existe no banco, logo bloqueado, e apagado do localStorage */
+            if (existentID) { 
+                const imagem = existentID.imagem;
+                const produto = existentID.produto;
+                const precoUnitario = existentID.precoUnitario;
+                const quantidade = arrayStorage[i].qtd;
+
+                dataValidation.push({ id, imagem, produto, precoUnitario, quantidade }); 
+            } else { 
+                dataValidation.push({ id, blocked: true }) 
+            };
+        };
+
+        res.json(dataValidation).status(200);
+    } catch (err) {
+        res.json({ message: "Houve um erro de servidor", err })
+    }
+
+});
 
 app.listen(port, () => {
     console.log("Servidor iniciado na porta:", port)

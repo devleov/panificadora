@@ -8,6 +8,8 @@ const router = express.Router();
 router.get("/:category/:urlProduct", (req, res) => {
     const { category, urlProduct } = req.params;
 
+    console.log(category, urlProduct)
+
     /* Obtém o produto acessado no banco de dados */
     const dataProduct = Database.find((element) => element.categoria == category && element.url_produto == urlProduct);
 
@@ -25,7 +27,6 @@ router.get("/:category/:urlProduct", (req, res) => {
         product: dataProduct.produto,
         category: category,
         item: dataProduct,
-        btnUrlBack: `/categoria/${category}`,
         itemSuggestion: itemSuggestion,
         layout: false,
     })

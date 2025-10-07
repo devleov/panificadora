@@ -23,7 +23,7 @@
 <body class="position-relative">
     {{> navbar }}
 
-    <div class="box-product">
+    <div class="box-product item" id="{{item.id}}">
         <div class="box-img-product" id="box-img-product">
             <img id="img-product" src="/assets/imgs/pages/section/{{item.imagem}}"></img>
         </div>
@@ -35,17 +35,26 @@
             </div>
 
             <div class="cart-product w-75">
-                <div>
-                    <label class="form-label" for="quanty">Quantidade:</label>
-                    <input class="form-control" min="1" max="10" value="1" id="quanty" type="number">
+                <div class="d-flex justify-content-between align-items-center border rounded" style="max-width: 200px;">
+                    <div role="button" class="qtd-add px-2 py-1"><i style="pointer-events: none;"
+                            class="fa-solid fa-plus"></i></div>
+
+                    <input min="1" type="text" value="1" style="max-width: 100px;"
+                        class="input-qtd form-control text-center border-0 m-0 p-0">
+
+                    <div role="button" class="qtd-rem px-2 py-1"><i style="pointer-events: none;"
+                            class="fa-solid fa-minus"></i></div>
                 </div>
 
                 <p class="cart-warn" id="cart-warn"></p>
 
                 <div class="d-flex flex-column gap-1">
-                    <button id="add-to-cart" class="btn btn-md btn-primary">Comprar
-                        agora</button>
-                    <button id="add-to-cart" class="btn btn-md btn-secondary">Adicionar no
+                    <a href="/carrinho" class="btn-buy btn text-white"
+                        style="background-color: #c5a073; letter-spacing: .5px; font-family: 'Merriweather', sans-serif;">COMPRAR
+                        AGORA</a>
+                    <button class="btn-buy btn btn-md btn-secondary"
+                        style="font-family: 'Merriweather',  sans-serif;">Adicionar
+                        no
                         carrinho</button>
                 </div>
             </div>
@@ -71,6 +80,8 @@
 
         <div class="box-cards" id="box-cards">
 
+            {{#if itemSuggestion}}
+
             {{#each itemSuggestion}}
             <a style="text-decoration: none;" href="{{url_produto}}">
                 <div class="card-item d-flex flex-column p-2" id="{{id}}">
@@ -85,6 +96,10 @@
                 </div>
             </a>
             {{/each}}
+
+            {{else}}
+            <p>Não encontramos nenhum produto semelhante a este.</p>
+            {{/if}}
 
         </div>
     </section>
@@ -106,6 +121,9 @@
     {{!-- EVENTOS DO CARRINHO DE COMPRAS --}}
     <script type="module" src="/js/func/cart/otherEvents.js"></script>
 
+    {{!-- FUNÇÃO DE PERCORRER O LOCALSTORAGE --}}
+    <script src="/js/func/cart/eachStorage.js"></script>
+    
     {{!-- CARREGAMENTO DO JAVASCRIPT DA PÁGINA --}}
     <script type="module" src="/js/pages/product/script.js"></script>
     <script src="/js/components/historyBack.js"></script>

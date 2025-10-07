@@ -30,7 +30,8 @@
         <h1 class="position-relative color-dark w-75" style="padding: 0 10%;">Seção de {{category}}</h1>
 
         <div class="position-relative w-25">
-            <button class="history-back btn btn-secondary fs-5 text-decoration-none text-white"><i class="fa-solid fa-arrow-left me-2"></i> Voltar</button>
+            <button class="history-back btn btn-secondary fs-5 text-decoration-none text-white"><i
+                    class="fa-solid fa-arrow-left me-2"></i> Voltar</button>
         </div>
     </div>
 
@@ -41,7 +42,7 @@
             <select class="form-select" id="filter">
                 <option value="todos" selected>Todos</option>
 
-                {{#if (eq category "pães" "bolos" "salgadinhos") }}
+                {{#if (eq category "pães" "bolos") }}
                 <option value="doce">Doce</option>
                 <option value="salgado">Salgado</option>
                 {{/if}}
@@ -114,6 +115,9 @@
 
     {{!-- EVENTOS DO CARRINHO DE COMPRAS --}}
     <script type="module" src="/js/func/cart/otherEvents.js"></script>
+
+    {{!-- FUNÇÃO DE PERCORRER O LOCALSTORAGE --}}
+    <script src="/js/func/cart/eachStorage.js"></script>
 
     {{!-- CARREGAMENTO DO JAVASCRIPT DA PÁGINA --}}
     <script type="module" src="/js/pages/section/script.js"></script>

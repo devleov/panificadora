@@ -8,13 +8,12 @@ import filterByFeature from "../../func/filterFeature.js";
 /* ================================
    IMPORTAÇÕES DO CARRINHO DE COMPRAS
    ================================ */
-import changePriceEnd from "../../func/cart/changePriceEnd.js"
 import changeQtdCart from "../../func/cart/changeQtdCart.js"
 import changeSubTotalCart from "../../func/cart/changeSubTotalCart.js"
 
 // Executa logo ao carregar a página (caso já tenha itens)
+changeSubTotalCart();
 changeQtdCart();
-changeSubTotalCart(".sub-total-offcanvas");
 
 /* ================================
    CAPTURA DE ELEMENTOS DO DOM
