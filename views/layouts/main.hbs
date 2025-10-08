@@ -25,10 +25,15 @@
     {{> footer}}
 
     {{!-- JS BOOTSTRAP --}}
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
 
     {{!-- EVENTOS DO CARRINHO DE COMPRAS --}}
     <script type="module" src="/js/func/cart/otherEvents.js"></script>
+
+    {{!-- FUNÇÃO DE PERCORRER O LOCALSTORAGE --}}
+    <script src="/js/func/cart/eachStorage.js"></script>
 
     {{!-- CARREGAMENTO DO JAVASCRIPT DA PÁGINA --}}
     <script type="module" src="/js/pages/{{page}}/script.js"></script>

@@ -72,6 +72,57 @@ app.get("/carrinho", (req, res) => {
     });
 });
 
+const Coupon = [
+    {
+        name_coupon: "CLIENTE10",
+        value_coupon: 5,
+    },
+    {
+        name_coupon: "1DESCONTO",
+        value_coupon: 2,
+    }
+];
+
+app.post("/consultCep", async (req, res) => {
+    try {
+        const cep = req.body.cep;
+
+        const resp = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
+        const data = await resp.json();
+
+        if (!data) {
+            return res.json({ message: "Este cep está inválido ou expirado.", status: 400 });
+        }
+
+        if (data.localidade !== "Riolândia") {
+            return res.json({ message: "Não entregamos nesta localidade..", status: 400 });
+        }
+
+        res.json({ message: "CEP encontrado com sucesso!", status: 200 })
+        req.session.cepActived = req.body.cep.toUpperCase();
+    } catch (err) {
+        console.error(err);
+        return res.json({ message: "Houve um erro de servidor..", status: 500 });
+    }
+});
+
+app.post("/activeCoupon", (req, res) => {
+    try {
+        const coupon = req.body.coupon;
+
+        const val = Coupon.find((cou) => cou.name_coupon.toLowerCase() === coupon.toLowerCase());
+        if (!val) {
+            return res.json({ message: "Este cupom está inválido ou expirado.", status: 400 })
+        }
+
+        res.json({ message: "Cupom ativado com sucesso!", value_coupon: val.value_coupon, status: 200 })
+        req.session.couponActived = req.body.coupon.toUpperCase();
+    } catch (err) {
+        console.error(err);
+        return res.json({ message: "Houve um erro de servidor..", status: 500 });
+    }
+});
+
 app.post("/validationID", (req, res) => {
     try {
         const dataValidation = [];
@@ -92,21 +143,21 @@ app.post("/validationID", (req, res) => {
             const existentID = Database.find((el) => el.id === id);
 
             /* Não houve retorno, não existe no banco, logo bloqueado, e apagado do localStorage */
-            if (existentID) { 
+            if (existentID) {
                 const imagem = existentID.imagem;
                 const produto = existentID.produto;
                 const precoUnitario = existentID.precoUnitario;
                 const quantidade = arrayStorage[i].qtd;
 
-                dataValidation.push({ id, imagem, produto, precoUnitario, quantidade }); 
-            } else { 
-                dataValidation.push({ id, blocked: true }) 
+                dataValidation.push({ id, imagem, produto, precoUnitario, quantidade });
+            } else {
+                dataValidation.push({ id, blocked: true })
             };
         };
 
         res.json(dataValidation).status(200);
     } catch (err) {
-        res.json({ message: "Houve um erro de servidor", err })
+        return res.json({ message: "Houve um erro de servidor", err })
     }
 
 });

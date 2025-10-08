@@ -96,10 +96,126 @@ function fillCartItems(data) {
         currency: "BRL",
         style: "currency",
     }));
+
+    changeSubTotalCart();
 }
 
 const data = await validateCart(); // Aqui ele valida os IDS e os valores
 fillCartItems(data); // Aqui ele preenche já com os valores validados
+
+/* Quando o cliente clica para "ativar" o desconto */
+$(".btn-coupon-discount").on("click", async () => {
+    const elemValueDiscount = $(".discount-cart-shopping");
+    const inputCoupon = $(".input-coupon-discont");
+    const warnCoupon = $(".warn-coupon-discount");
+
+    /* Sempre inicia o valor como zero */
+    elemValueDiscount.text(0.00.toLocaleString("pt-br", {
+        currency: "BRL",
+        style: "currency",
+    }));
+
+    /* Atualiza o valor do sub-total */
+    changeSubTotalCart();
+
+    if (!inputCoupon.val()) {
+        warnCoupon.text("");
+
+        return inputCoupon.addClass("is-invalid");
+    }
+
+    inputCoupon.removeClass("is-invalid");
+
+    /* Requisição para validação do cupom de desconto */
+    const resp = await fetch("/activeCoupon", {
+        method: "POST",
+        headers: { "Content-type": "application/json" },
+        body: JSON.stringify({ coupon: inputCoupon.val() })
+    });
+
+    const data = await resp.json();
+
+    /* Quando o cupom de desconto está ativo e funcionando */
+    if (data.status == 200) {
+        inputCoupon.addClass("is-valid")
+        warnCoupon.css("color", "green");
+
+        elemValueDiscount.text(data.value_coupon.toLocaleString("pt-br", {
+            currency: "BRL",
+            style: "currency",
+        }));
+
+        changeSubTotalCart();
+    }
+
+    /* Quando o cupom de desconto está vencido ou inválido, ou erro de servidor */
+    if (data.status == 400 || data.status == 500) {
+        inputCoupon.addClass("is-invalid")
+        warnCoupon.css("color", "red");
+    }
+
+    if (data.message) {
+        warnCoupon.text(data.message);
+    };
+});
+
+/* Quando o cliente clica para "consultar" o CEP */
+$(".btn-consult-cep").on("click", async () => {
+    const elemValueCep = $(".freight-cart-shopping");
+    const inputCep = $(".input-consult-cep");
+    const warnCep = $(".warn-consult-cep");
+
+    const inputValCep = inputCep.val().replace(/\D/g, "");
+
+    /* Sempre inicia o valor como zero */
+    elemValueCep.text(0.00.toLocaleString("pt-br", {
+        currency: "BRL",
+        style: "currency",
+    }));
+
+    /* Atualiza o valor do sub-total */
+    changeSubTotalCart();
+
+    if (!inputValCep || inputValCep.length < 8) {
+        warnCep.text("");
+
+        return inputCep.addClass("is-invalid");
+    }
+
+    inputCep.removeClass("is-invalid");
+
+    /* Requisição para validação do cupom de desconto */
+    const resp = await fetch("/consultCep", {
+        method: "POST",
+        headers: { "Content-type": "application/json" },
+        body: JSON.stringify({ cep: inputValCep })
+    });
+
+    const data = await resp.json();
+
+    /* Quando o cupom de desconto está ativo e funcionando */
+    if (data.status == 200) {
+        inputCep.addClass("is-valid")
+        warnCep.css("color", "green");
+
+        elemValueCep.text(5.00.toLocaleString("pt-br", {
+            currency: "BRL",
+            style: "currency",
+        }));
+
+        changeSubTotalCart();
+    }
+
+    /* Quando o cupom de desconto está vencido ou inválido, ou erro de servidor */
+    if (data.status == 400 || data.status == 500) {
+        inputCep.addClass("is-invalid")
+        warnCep.css("color", "red");
+    }
+
+    if (data.message) {
+        warnCep.text(data.message);
+    };
+})
 
 /* Quando o cliente clica para fazer o pedido */
 $(".place-order").on("click", (e) => {

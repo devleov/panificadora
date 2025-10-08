@@ -24,7 +24,7 @@ export default function changeSubTotalCart() {
         }
     }
 
-    /* Se o usuário estiver no carrinho de compras é para calcular o sub-total sob descontos e fretes. */
+    /* Se o usuário estiver no carrinho de compras página é para calcular o sub-total sob descontos e fretes. */
     if ($(".order-summary").length === 1) {
         const freight = removeCurrency($(".freight-cart-shopping").text());
         const discount = removeCurrency($(".discount-cart-shopping").text());
