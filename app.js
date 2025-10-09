@@ -9,9 +9,10 @@ import session from "express-session";
 app.use(session({
     secret: "meuincrivelpan",
     saveUninitialized: true,
-    resave: false,
+    resave: true,
     cookie: {
         secure: false,
+        sameSite: "lax",
         maxAge: 1000 * 60 * 60 * 24,
     }
 }))
@@ -57,6 +58,32 @@ app.set("view engine", "hbs");
 
 app.use(express.static(path.join("public")));
 
+
+/* ROTAS DE DEBUGAÇÃO DE SESSÃO */
+app.post("/cep-create", (req, res) => {
+    req.session.cepActived = {
+        cep: "15497066",
+        delivery_price: 2
+    };
+
+    return res.json(req.session.cepActived)
+})
+
+app.get("/consult-cep", (req, res) => {
+    console.log(req.session.cepActived);
+
+    if (!req.session.cepActived) {
+        req.session.cepActived = {
+            cep: "",
+            delivery_price: 0,
+        }
+    }
+
+    return res.json(req.session.cepActived);
+})
+
+// --------------------------------------
+
 app.get("/", (req, res) => {
     res.render("welcome", {
         title: "Panificadora Bakery",
@@ -65,6 +92,10 @@ app.get("/", (req, res) => {
 });
 
 app.get("/carrinho", (req, res) => {
+    /* Zera tudo que tem relação com frete e desconto na sessão do usuário */
+    req.session.cepActived = undefined;
+    req.session.couponActived = undefined;
+
     res.render("layouts/cart", {
         title: "Carrinho de compras",
         page: "cart",
@@ -83,29 +114,6 @@ const Coupon = [
     }
 ];
 
-app.post("/consultCep", async (req, res) => {
-    try {
-        const cep = req.body.cep;
-
-        const resp = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
-        const data = await resp.json();
-
-        if (!data) {
-            return res.json({ message: "Este cep está inválido ou expirado.", status: 400 });
-        }
-
-        if (data.localidade !== "Riolândia") {
-            return res.json({ message: "Não entregamos nesta localidade..", status: 400 });
-        }
-
-        res.json({ message: "CEP encontrado com sucesso!", status: 200 })
-        req.session.cepActived = req.body.cep.toUpperCase();
-    } catch (err) {
-        console.error(err);
-        return res.json({ message: "Houve um erro de servidor..", status: 500 });
-    }
-});
-
 app.post("/activeCoupon", (req, res) => {
     try {
         const coupon = req.body.coupon;
@@ -115,15 +123,98 @@ app.post("/activeCoupon", (req, res) => {
             return res.json({ message: "Este cupom está inválido ou expirado.", status: 400 })
         }
 
-        res.json({ message: "Cupom ativado com sucesso!", value_coupon: val.value_coupon, status: 200 })
-        req.session.couponActived = req.body.coupon.toUpperCase();
+        req.session.couponActived = {
+            coupon: req.body.coupon.toUpperCase(),
+            value_coupon: val.value_coupon
+        };
+
+        res.json({ message: "Cupom ativado com sucesso!", value_coupon: val.value_coupon, status: 200 });
     } catch (err) {
         console.error(err);
         return res.json({ message: "Houve um erro de servidor..", status: 500 });
     }
 });
 
-app.post("/validationID", (req, res) => {
+/* Localizações que a empresa entrega */
+const locationsDelivery = [
+    {
+        location: "Riolândia",
+        delivery_price: 2,
+    },
+    {
+        location: "Paulo de Faria",
+        delivery_price: 9,
+    },
+    {
+        location: "Cardoso",
+        delivery_price: 6,
+    },
+]
+
+app.post("/consultCep", async (req, res) => {
+    try {
+        const cep = req.body.cep;
+
+        const resp = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
+        const data = await resp.json();
+
+        if (data && data.erro == "true") {
+            return res.json({ message: "Este cep está inválido ou expirado.", status: 400 });
+        }
+
+        const locationValidated = locationsDelivery.find((loc) => loc.location.toLowerCase() == data.localidade.toLowerCase());
+
+        if (!locationValidated) {
+            return res.json({ message: "Não entregamos nesta localidade..", status: 400 });
+        }
+        
+        /* Guarda o CEP do usuário e o preço de delivery referente ao CEP, para validações */
+        req.session.cepActived = {
+            cep: cep.toUpperCase(),
+            delivery_price: locationValidated.delivery_price,
+        };
+
+        res.json({ message: "CEP encontrado com sucesso!", delivery_price: locationValidated.delivery_price, status: 200 })
+    } catch (err) {
+        console.error(err);
+        return res.json({ message: "Houve um erro de servidor..", status: 500 });
+    }
+});
+
+/* Valida o pedido, verificando se o cupom de desconto é válido e o frete */
+app.post("/orderValidation", (req, res) => {
+    try {
+        const { cartItems } = req.body;
+
+        const { cepActived, couponActived } = req.session;
+
+        let total = 0;
+
+        if (cartItems && cartItems.length == 0 || !cartItems) return res.json({ message: "Não existe itens no carrinho..", status: 400 });
+        if (!cepActived) return res.json({ message: "Insira um cep válido, por favor.", status: 400 })
+
+        if (couponActived) {
+            /* Soma o valor do cupom referente ao cupom de desconto */
+            total -= couponActived.value_coupon;
+        }
+
+        /* Soma o valor do frete referente ao CEP */
+        total += cepActived.delivery_price;
+
+        /* Percorre todos os itens validados e soma seus valores */
+        cartItems.forEach((el) => {
+            total += parseFloat(el.precoUnitario) * parseInt(el.quantidade)
+        });
+
+        res.json({ message: "Pedido validado com sucesso!", total, status: 200 });
+        console.log("Valor total:", total)
+    } catch (err) {
+        console.error(err);
+        return res.json({ message: "Houve algum erro na validação do pedido!" });
+    }
+});
+
+app.post("/idValidation", (req, res) => {
     try {
         const dataValidation = [];
 

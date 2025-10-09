@@ -11,7 +11,7 @@ async function validateCart() {
     const arrayStorage = value.arrayStorage;
 
     /* Requisição para verificação de ID existente no banco de dados */
-    const resp = await fetch("/validationID", {
+    const resp = await fetch("/idValidation", {
         method: "POST",
         headers: { "Content-type": "application/json" },
         body: JSON.stringify({ arrayStorage })
@@ -126,6 +126,8 @@ $(".btn-coupon-discount").on("click", async () => {
 
     inputCoupon.removeClass("is-invalid");
 
+    $(".btn-coupon-discount").prop("disabled", true);
+
     /* Requisição para validação do cupom de desconto */
     const resp = await fetch("/activeCoupon", {
         method: "POST",
@@ -134,6 +136,8 @@ $(".btn-coupon-discount").on("click", async () => {
     });
 
     const data = await resp.json();
+
+    $(".btn-coupon-discount").prop("disabled", false);
 
     /* Quando o cupom de desconto está ativo e funcionando */
     if (data.status == 200) {
@@ -155,7 +159,13 @@ $(".btn-coupon-discount").on("click", async () => {
     }
 
     if (data.message) {
+        if (interval) clearInterval(interval);
+
         warnCoupon.text(data.message);
+
+        interval = setTimeout(() => {
+            warnCoupon.text("");
+        }, 5000);
     };
 });
 
@@ -184,6 +194,8 @@ $(".btn-consult-cep").on("click", async () => {
 
     inputCep.removeClass("is-invalid");
 
+    $(".btn-consult-cep").prop("disabled", true);
+
     /* Requisição para validação do cupom de desconto */
     const resp = await fetch("/consultCep", {
         method: "POST",
@@ -193,12 +205,14 @@ $(".btn-consult-cep").on("click", async () => {
 
     const data = await resp.json();
 
+    $(".btn-consult-cep").prop("disabled", false);
+
     /* Quando o cupom de desconto está ativo e funcionando */
     if (data.status == 200) {
         inputCep.addClass("is-valid")
         warnCep.css("color", "green");
 
-        elemValueCep.text(5.00.toLocaleString("pt-br", {
+        elemValueCep.text(data.delivery_price.toLocaleString("pt-br", {
             currency: "BRL",
             style: "currency",
         }));
@@ -218,8 +232,36 @@ $(".btn-consult-cep").on("click", async () => {
 })
 
 /* Quando o cliente clica para fazer o pedido */
-$(".place-order").on("click", (e) => {
+$(".btn-place-order").on("click", async (e) => {
+    const warnOrder = $(".warn-place-order");
     e.preventDefault();
 
-    validateCart()
+    warnOrder.text("");
+    warnOrder.css("color", "black");
+
+    $(".btn-place-order").prop("disabled", true);
+
+    /* Percorre os produtos selecionados para compra (já validados) */
+    const productsSelected = await validateCart();
+
+    /* Valida o cupom de desconto e o frete */
+    const resp = await fetch("/orderValidation", {
+        method: "POST",
+        headers: { "Content-type": "application/json" },
+        body: JSON.stringify({ cartItems: productsSelected })
+    });
+
+    const data = await resp.json();
+
+    $(".btn-place-order").prop("disabled", false);
+
+    if (data.status == 200) {
+        warnOrder.text(data.message);
+        warnOrder.css("color", "green");
+    }
+
+    if (data.status == 400) {
+        warnOrder.text(data.message);
+        warnOrder.css("color", "red");
+    }
 });
