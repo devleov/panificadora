@@ -2,30 +2,26 @@
 
 /* Componentes */
 @import url("../../components/navbar.css");
+@import url("../../components/modalCart.css");
 @import url("../../components/footer.css");
 
-p {
-    margin: 0 !important;
-}
-
-/* Estilização de aviso de consulta de CEP */
-.invalid-feedback, .valid-feedback {
-    bottom: -1.5rem;
-    left: 0;
-}
-
-/* Removendo cores de preenchimento automático */
-input:-webkit-autofill { 
-    -webkit-box-shadow: 0 0 0 30px white inset;
+p,
+button,
+label,
+small {
+    font-family: "Open Sans", sans-serif;
 }
 
 input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 30px white inset;
     -webkit-text-fill-color: black !important;
 }
 
-@media screen and (max-width: 1000px) {
-    .row {
-        flex-direction: column; 
-        align-items: center;
-    }
+input:disabled,
+input:disabled:-webkit-autofill {
+    background-color: black !important;
+    -webkit-box-shadow: 0 0 0 30px #efefef inset !important;
+    -webkit-text-fill-color: #7e7e7e !important;
+    color: #6b6b6b !important;
+    cursor: not-allowed;
 }

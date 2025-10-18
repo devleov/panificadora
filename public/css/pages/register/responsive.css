@@ -1,0 +1,10 @@
+@media screen and (max-width: 850px) {
+    .bx-register {
+        margin: 36px 0;
+        height: 100%;
+    }
+
+    .bx-register .container {
+        flex-direction: column;
+    }
+}

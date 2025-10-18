@@ -137,6 +137,7 @@ $(document).on("click", ".btn-buy", (btnClicked) => {
 
     localStorage.setItem(id, inputQtd.value);
     changeQtdCart();
+    changeSubTotalCart();
 
     /* Se não existir no botão que clicou href mostrar aviso de item adicionado */
     if (!btnClicked.target.href) {

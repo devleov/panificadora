@@ -1,0 +1,9 @@
+@media screen and (max-width: 850px) {
+    .bx-login {
+        margin: 36px 0;
+    }
+
+    .bx-login .container {
+        flex-direction: column;
+    }
+}
